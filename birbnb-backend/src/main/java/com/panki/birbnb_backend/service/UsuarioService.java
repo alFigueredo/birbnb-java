@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.panki.birbnb_backend.model.Usuario;
 import com.panki.birbnb_backend.repository.UsuarioRepository;
+import com.panki.birbnb_backend.exception.NotFoundError;
 import com.panki.birbnb_backend.model.Notificacion;
 import com.panki.birbnb_backend.repository.NotificacionRepository;
 
@@ -25,7 +26,8 @@ public class UsuarioService {
 	}
 
 	public Usuario getById(Long id) {
-		return usuarioRepository.findById(id).get();
+		return usuarioRepository.findById(id)
+				.orElseThrow(() -> new NotFoundError(id));
 	}
 
 	public List<Notificacion> getNotificaciones(Long id) {
