@@ -7,18 +7,15 @@ import org.springframework.stereotype.Service;
 import com.panki.birbnb_backend.exception.NotFoundException;
 import com.panki.birbnb_backend.model.Notificacion;
 import com.panki.birbnb_backend.model.Usuario;
-import com.panki.birbnb_backend.repository.NotificacionRepository;
 import com.panki.birbnb_backend.repository.UsuarioRepository;
 
 @Service
 public class UsuarioService {
 
 	private final UsuarioRepository usuarioRepository;
-	private final NotificacionRepository notificacionRepository;
 
-	public UsuarioService(UsuarioRepository usuarioRepository, NotificacionRepository notificacionRepository) {
+	public UsuarioService(UsuarioRepository usuarioRepository) {
 		this.usuarioRepository = usuarioRepository;
-		this.notificacionRepository = notificacionRepository;
 	}
 
 	public List<Usuario> getAll() {
@@ -32,17 +29,17 @@ public class UsuarioService {
 
 	public List<Notificacion> getNotificaciones(Long id) {
 		final Usuario usuario = getById(id);
-		return notificacionRepository.findByUsuario(usuario);
+		return usuario.getNotificaciones();
 	}
 
-	public List<Notificacion> getNotificacionesLeidas(Long id) {
+	public List<Notificacion> obtenerNotificacionesLeidas(Long id) {
 		final Usuario usuario = getById(id);
-		return notificacionRepository.findByUsuarioAndLeida(usuario, true);
+		return usuario.obtenerNotificacionesLeidas();
 	}
 
-	public List<Notificacion> getNotificacionesSinLeer(Long id) {
+	public List<Notificacion> obtenerNotificacionesSinLeer(Long id) {
 		final Usuario usuario = getById(id);
-		return notificacionRepository.findByUsuarioAndLeida(usuario, false);
+		return usuario.obtenerNotificacionesSinLeer();
 	}
 
 }

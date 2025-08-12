@@ -9,8 +9,4 @@ import com.panki.birbnb_backend.model.Usuario;
 
 public interface NotificacionRepository extends JpaRepository<Notificacion, Long> {
 
-	List<Notificacion> findByUsuario(Usuario usuario);
-
-	List<Notificacion> findByUsuarioAndLeida(Usuario usuario, boolean leida);
-
 }

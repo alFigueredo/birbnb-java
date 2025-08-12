@@ -2,6 +2,8 @@ package com.panki.birbnb_backend.model;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -17,8 +19,9 @@ public class Notificacion {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private final String mensaje;
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "usuario_id")
+	@JsonBackReference
 	private final Usuario usuario;
 	private final LocalDateTime fechaAlta;
 	private final boolean leida = false;
@@ -54,6 +57,10 @@ public class Notificacion {
 
 	public boolean isLeida() {
 		return leida;
+	}
+
+	public boolean estaSinLeer() {
+		return !isLeida();
 	}
 
 	public LocalDateTime getFechaLeida() {

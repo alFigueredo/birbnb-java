@@ -8,11 +8,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.panki.birbnb_backend.model.Usuario;
 import com.panki.birbnb_backend.model.Notificacion;
+import com.panki.birbnb_backend.model.Usuario;
 import com.panki.birbnb_backend.service.UsuarioService;
-
-import jakarta.validation.constraints.NotNull;
 
 @Controller
 @RequestMapping(path = "/api/usuarios")
@@ -31,9 +29,7 @@ public class UsuarioController {
 
 	@GetMapping(path = "/{userId}")
 	public @ResponseBody Usuario getUsuarioById(@PathVariable Long userId) {
-		@NotNull
-		final Usuario usuario = usuarioService.getById(userId);
-		return usuario;
+		return usuarioService.getById(userId);
 	}
 
 	@GetMapping(path = "/{userId}/notificaciones")
@@ -42,13 +38,13 @@ public class UsuarioController {
 	}
 
 	@GetMapping(path = "/{userId}/notificaciones/leidas")
-	public @ResponseBody List<Notificacion> getNotificacionesLeida(@PathVariable Long userId) {
-		return usuarioService.getNotificacionesLeidas(userId);
+	public @ResponseBody List<Notificacion> getNotificacionesLeidas(@PathVariable Long userId) {
+		return usuarioService.obtenerNotificacionesLeidas(userId);
 	}
 
 	@GetMapping(path = "/{userId}/notificaciones/sinleer")
 	public @ResponseBody List<Notificacion> getNotificacionesSinLeer(@PathVariable Long userId) {
-		return usuarioService.getNotificacionesSinLeer(userId);
+		return usuarioService.obtenerNotificacionesSinLeer(userId);
 	}
 
 }
