@@ -16,7 +16,7 @@ GET http://localhost:8080/api/notificaciones HTTP/1.1
 
 ### get_notificacion_by_id
 
-GET http://localhost:8080/api/notificaciones/1412 HTTP/1.1
+GET http://localhost:8080/api/notificaciones/1452 HTTP/1.1
 
 ### get_notificaciones_usuario
 

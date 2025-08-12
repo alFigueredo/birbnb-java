@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.panki.birbnb_backend.model.Usuario;
-import com.panki.birbnb_backend.repository.UsuarioRepository;
-import com.panki.birbnb_backend.exception.NotFoundError;
+import com.panki.birbnb_backend.exception.NotFoundException;
 import com.panki.birbnb_backend.model.Notificacion;
+import com.panki.birbnb_backend.model.Usuario;
 import com.panki.birbnb_backend.repository.NotificacionRepository;
+import com.panki.birbnb_backend.repository.UsuarioRepository;
 
 @Service
 public class UsuarioService {
@@ -27,7 +27,7 @@ public class UsuarioService {
 
 	public Usuario getById(Long id) {
 		return usuarioRepository.findById(id)
-				.orElseThrow(() -> new NotFoundError(id));
+				.orElseThrow(() -> new NotFoundException(id));
 	}
 
 	public List<Notificacion> getNotificaciones(Long id) {
