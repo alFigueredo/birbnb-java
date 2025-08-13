@@ -24,8 +24,8 @@ public class Notificacion {
 	@JsonBackReference
 	private final Usuario usuario;
 	private final LocalDateTime fechaAlta;
-	private final boolean leida = false;
-	private final LocalDateTime fechaLeida = null;
+	private boolean leida = false;
+	private LocalDateTime fechaLeida = null;
 
 	protected Notificacion() {
 		this.mensaje = null;
@@ -51,6 +51,10 @@ public class Notificacion {
 		return usuario;
 	}
 
+	public Long getUsuarioId() {
+		return getUsuario().getId();
+	}
+
 	public LocalDateTime getFechaAlta() {
 		return fechaAlta;
 	}
@@ -65,6 +69,13 @@ public class Notificacion {
 
 	public LocalDateTime getFechaLeida() {
 		return fechaLeida;
+	}
+
+	public void marcarComoLeida() {
+		if (leida)
+			return;
+		leida = true;
+		fechaLeida = LocalDateTime.now();
 	}
 
 }

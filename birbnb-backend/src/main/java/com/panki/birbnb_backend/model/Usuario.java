@@ -26,10 +26,12 @@ public class Usuario {
 	private final String email;
 	@Enumerated(EnumType.STRING)
 	private final TipoUsuario tipo;
-
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JsonManagedReference
 	private final List<Notificacion> notificaciones = new ArrayList<>();
+	@OneToMany(mappedBy = "huespedReservador", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonManagedReference
+	private final List<Reserva> reservas = new ArrayList<>();
 
 	protected Usuario() {
 		this.nombre = null;
@@ -74,6 +76,10 @@ public class Usuario {
 	public void agregarNotificacion(String mensaje) {
 		final Notificacion notificacion = new Notificacion(mensaje, this);
 		notificaciones.add(notificacion);
+	}
+
+	public List<Reserva> getReservas() {
+		return reservas;
 	}
 
 }

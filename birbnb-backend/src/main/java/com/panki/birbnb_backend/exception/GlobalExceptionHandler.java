@@ -15,6 +15,7 @@ public class GlobalExceptionHandler {
 
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<String> manejarGenericError(Exception err) {
+		System.err.println(err.getMessage());
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 				.body("Ocurrio un error inesperado");
 	}
