@@ -295,11 +295,11 @@ public class DataLoader implements CommandLineRunner {
 		};
 
 		final Reserva[] reservas = {
-				new Reserva(huespedes[0], 3, alojamientos[0], rangoFechas[0], 7000),
-				new Reserva(huespedes[1], 3, alojamientos[0], rangoFechas[1], 7000),
-				new Reserva(huespedes[2], 3, alojamientos[0], rangoFechas[2], 7000),
-				new Reserva(huespedes[1], 3, alojamientos[0], rangoFechas[3], 7000),
-				new Reserva(huespedes[2], 3, alojamientos[0], rangoFechas[4], 7000),
+				new Reserva(huespedes[0], 3, alojamientos[0], rangoFechas[0]),
+				new Reserva(huespedes[1], 3, alojamientos[0], rangoFechas[1]),
+				new Reserva(huespedes[2], 3, alojamientos[0], rangoFechas[2]),
+				new Reserva(huespedes[1], 3, alojamientos[0], rangoFechas[3]),
+				new Reserva(huespedes[2], 3, alojamientos[0], rangoFechas[4]),
 		};
 
 		for (final Reserva reserva : reservas)

@@ -143,4 +143,20 @@ public class Alojamiento {
 		fotos.add(foto);
 	}
 
+	public boolean estasDisponibleEn(Reserva nuevaReserva) {
+		return getReservas().stream().allMatch((reserva) -> !reserva.haySolapamiento(nuevaReserva));
+	}
+
+	public boolean tuPrecioEstaDentroDe(float valorMinimo, float valorMaximo) {
+		return getPrecioPorNoche() >= valorMinimo && getPrecioPorNoche() <= valorMaximo;
+	}
+
+	public boolean tenesCaracteristica(Caracteristica caracteristica) {
+		return getCaracteristicas().contains(caracteristica);
+	}
+
+	public boolean puedenAlojarse(int cantHuespedes) {
+		return cantHuespedes <= getCantHuespedesMax();
+	}
+
 }

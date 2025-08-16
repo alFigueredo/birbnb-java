@@ -23,7 +23,7 @@ public class AlojamientoService {
 
 	public Alojamiento getById(Long id) {
 		return alojamientoRepository.findById(id)
-				.orElseThrow(() -> new NotFoundException(id));
+				.orElseThrow(() -> new NotFoundException("El alojamiento " + id + " no existe"));
 	}
 
 }

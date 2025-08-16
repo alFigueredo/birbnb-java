@@ -24,7 +24,7 @@ public class UsuarioService {
 
 	public Usuario getById(Long id) {
 		return usuarioRepository.findById(id)
-				.orElseThrow(() -> new NotFoundException(id));
+				.orElseThrow(() -> new NotFoundException("El usuario " + id + " no existe"));
 	}
 
 	public List<Notificacion> getNotificaciones(Long id) {

@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.panki.birbnb_backend.model.enums.EstadoReserva;
 
-import jakarta.persistence.CascadeType;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -15,7 +15,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 
 @Entity
 public class Reserva {
@@ -24,6 +23,7 @@ public class Reserva {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private LocalDateTime fechaAlta;
+	private LocalDateTime fechaActualizacion;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "huespedReservador_id")
 	@JsonBackReference
@@ -33,15 +33,15 @@ public class Reserva {
 	@JoinColumn(name = "alojamiento_id")
 	@JsonBackReference
 	private final Alojamiento alojamiento;
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "rangoFechas_id")
-	private RangoFechas rangoFechas;
+	@Embedded
+	private final RangoFechas rangoFechas;
 	@Enumerated(EnumType.STRING)
 	private EstadoReserva estadoReserva = EstadoReserva.PENDIENTE;
 	private final float precioPorNoche;
 
 	protected Reserva() {
 		this.fechaAlta = null;
+		this.fechaActualizacion = null;
 		this.huespedReservador = null;
 		this.cantHuespedes = 0;
 		this.alojamiento = null;
@@ -50,13 +50,14 @@ public class Reserva {
 	}
 
 	public Reserva(Usuario huespedReservador, int cantHuespedes, Alojamiento alojamiento,
-			RangoFechas rangoFechas, float precioPorNoche) {
+			RangoFechas rangoFechas) {
 		this.fechaAlta = LocalDateTime.now();
+		this.fechaActualizacion = getFechaAlta();
 		this.huespedReservador = huespedReservador;
 		this.cantHuespedes = cantHuespedes;
 		this.alojamiento = alojamiento;
 		this.rangoFechas = rangoFechas;
-		this.precioPorNoche = precioPorNoche;
+		this.precioPorNoche = alojamiento.getPrecioPorNoche();
 	}
 
 	public Long getId() {
@@ -65,6 +66,10 @@ public class Reserva {
 
 	public LocalDateTime getFechaAlta() {
 		return fechaAlta;
+	}
+
+	public LocalDateTime getFechaActualizacion() {
+		return fechaActualizacion;
 	}
 
 	public Usuario getHuespedReservador() {
@@ -99,8 +104,8 @@ public class Reserva {
 		return precioPorNoche;
 	}
 
-	private void updateFechaAlta() {
-		this.fechaAlta = LocalDateTime.now();
+	private void updateFechaActualizacion() {
+		this.fechaActualizacion = LocalDateTime.now();
 	}
 
 	public void setCantHuespedes(int cantHuespedes) {
@@ -108,13 +113,26 @@ public class Reserva {
 	}
 
 	public void setRangoFechas(RangoFechas rangoFechas) {
-		this.rangoFechas = rangoFechas;
+		getRangoFechas().modificarRangoFechas(rangoFechas);
 	}
 
 	public void actualizarEstado(EstadoReserva estadoReserva) {
 		if (estadoReserva == EstadoReserva.PENDIENTE)
-			updateFechaAlta();
+			updateFechaActualizacion();
 		this.estadoReserva = estadoReserva;
+	}
+
+	public boolean reservaAnulada() {
+		return getEstadoReserva() == EstadoReserva.CANCELADA || getEstadoReserva() == EstadoReserva.RECHAZADA;
+	}
+
+	public boolean reservaConfirmadaRechazada() {
+		return getEstadoReserva() == EstadoReserva.CONFIRMADA || getEstadoReserva() == EstadoReserva.RECHAZADA;
+	}
+
+	public boolean haySolapamiento(Reserva reserva) {
+		return !reservaAnulada() && !getId().equals(reserva.getId())
+				&& getRangoFechas().haySolapamiento(reserva.getRangoFechas());
 	}
 
 }

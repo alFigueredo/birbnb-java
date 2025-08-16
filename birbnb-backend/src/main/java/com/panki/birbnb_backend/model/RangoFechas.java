@@ -2,19 +2,15 @@ package com.panki.birbnb_backend.model;
 
 import java.time.LocalDate;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.panki.birbnb_backend.exception.ValidationException;
 
-@Entity
+import jakarta.persistence.Embeddable;
+
+@Embeddable
 public class RangoFechas {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-	private final LocalDate fechaInicio;
-	private final LocalDate fechaFin;
+	private LocalDate fechaInicio;
+	private LocalDate fechaFin;
 
 	protected RangoFechas() {
 		this.fechaInicio = null;
@@ -24,10 +20,8 @@ public class RangoFechas {
 	public RangoFechas(LocalDate fechaInicio, LocalDate fechaFin) {
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
-	}
-
-	public Long getId() {
-		return id;
+		if (getFechaFin().isBefore(getFechaInicio()))
+			throw new ValidationException("Rango de fechas incorrecto");
 	}
 
 	public LocalDate getFechaInicio() {
@@ -36,6 +30,28 @@ public class RangoFechas {
 
 	public LocalDate getFechaFin() {
 		return fechaFin;
+	}
+
+	public void setFechaInicio(LocalDate fechaInicio) {
+		this.fechaInicio = fechaInicio;
+	}
+
+	public void setFechaFin(LocalDate fechaFin) {
+		this.fechaFin = fechaFin;
+	}
+
+	public int cantidadDias() {
+		return getFechaFin().compareTo(getFechaInicio());
+	}
+
+	public void modificarRangoFechas(RangoFechas rangoFechas) {
+		setFechaInicio(rangoFechas.getFechaInicio());
+		setFechaFin(rangoFechas.getFechaInicio());
+	}
+
+	public boolean haySolapamiento(RangoFechas rangoFechas) {
+		return rangoFechas.getFechaInicio().isBefore(getFechaFin())
+				&& rangoFechas.getFechaFin().isAfter(getFechaInicio());
 	}
 
 }
