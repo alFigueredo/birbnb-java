@@ -56,4 +56,9 @@ public class ReservaController {
 		return reservaService.rechazarReserva(resId, motivoDTO);
 	}
 
+	@PutMapping(path = "/{resId}")
+	public @ResponseBody Reserva modificarReserva(@PathVariable Long resId, @RequestBody ReservaDTO reservaDTO) {
+		return reservaService.modificarReserva(resId, reservaDTO);
+	}
+
 }

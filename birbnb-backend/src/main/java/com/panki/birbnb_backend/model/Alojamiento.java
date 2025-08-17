@@ -143,8 +143,10 @@ public class Alojamiento {
 		fotos.add(foto);
 	}
 
-	public boolean estasDisponibleEn(Reserva nuevaReserva) {
-		return getReservas().stream().allMatch((reserva) -> !reserva.haySolapamiento(nuevaReserva));
+	public boolean estasDisponibleEn(RangoFechas rangoFechas, Long reservaId) {
+		return getReservas().stream()
+				.allMatch((reserva) -> (reservaId != null && reservaId.equals(reserva.getId()))
+						|| !reserva.haySolapamiento(rangoFechas));
 	}
 
 	public boolean tuPrecioEstaDentroDe(float valorMinimo, float valorMaximo) {

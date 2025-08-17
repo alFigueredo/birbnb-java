@@ -56,6 +56,7 @@ public class Reserva {
 		this.huespedReservador = huespedReservador;
 		this.cantHuespedes = cantHuespedes;
 		this.alojamiento = alojamiento;
+		rangoFechas.esValido();
 		this.rangoFechas = rangoFechas;
 		this.precioPorNoche = alojamiento.getPrecioPorNoche();
 	}
@@ -113,6 +114,7 @@ public class Reserva {
 	}
 
 	public void setRangoFechas(RangoFechas rangoFechas) {
+		rangoFechas.esValido();
 		getRangoFechas().modificarRangoFechas(rangoFechas);
 	}
 
@@ -130,9 +132,8 @@ public class Reserva {
 		return getEstadoReserva() == EstadoReserva.CONFIRMADA || getEstadoReserva() == EstadoReserva.RECHAZADA;
 	}
 
-	public boolean haySolapamiento(Reserva reserva) {
-		return !reservaAnulada() && !getId().equals(reserva.getId())
-				&& getRangoFechas().haySolapamiento(reserva.getRangoFechas());
+	public boolean haySolapamiento(RangoFechas rangoFechas) {
+		return !reservaAnulada() && getRangoFechas().haySolapamiento(rangoFechas);
 	}
 
 }
