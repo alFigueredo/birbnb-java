@@ -10,6 +10,10 @@ GET http://localhost:8080/api/notificaciones HTTP/1.1
 
 GET http://localhost:8080/api/notificaciones/5903 HTTP/1.1
 
+### leer_notificacion
+
+PUT http://localhost:8080/api/notificaciones/5453/leer HTTP/1.1
+
 ### get_usuarios
 
 GET http://localhost:8080/api/usuarios HTTP/1.1
@@ -20,15 +24,15 @@ GET http://localhost:8080/api/usuarios/3802 HTTP/1.1
 
 ### get_notificaciones_usuario
 
-GET http://localhost:8080/api/usuarios/5155/notificaciones HTTP/1.1
+GET http://localhost:8080/api/usuarios/5453/notificaciones HTTP/1.1
 
 ### get_notificaciones_usuario_leidas
 
-GET http://localhost:8080/api/usuarios/5903/notificaciones/leidas HTTP/1.1
+GET http://localhost:8080/api/usuarios/5453/notificaciones/leidas HTTP/1.1
 
 ### get_notificaciones_usuario_sin_leer
 
-GET http://localhost:8080/api/usuarios/5903/notificaciones/sinleer HTTP/1.1
+GET http://localhost:8080/api/usuarios/5453/notificaciones/sinleer HTTP/1.1
 
 ### get_alojamientos
 

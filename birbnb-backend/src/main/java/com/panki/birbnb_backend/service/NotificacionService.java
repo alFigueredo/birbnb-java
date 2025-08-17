@@ -26,4 +26,10 @@ public class NotificacionService {
 				.orElseThrow(() -> new NotFoundException("La notificación" + id + " no existe"));
 	}
 
+	public Notificacion marcarComoLeida(Long id) {
+		final Notificacion notificacion = getById(id);
+		notificacion.marcarComoLeida();
+		return notificacionRepository.save(notificacion);
+	}
+
 }
