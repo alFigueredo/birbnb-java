@@ -19,7 +19,7 @@ public class FactoryNotificacion {
 	public static void generarNotificacion(Reserva reserva, String motivo) {
 		final Usuario usuario = obtenerUsuario(reserva);
 		String mensaje = crearSegunReserva(reserva);
-		if (!motivo.isBlank())
+		if (motivo != null && !motivo.isBlank())
 			mensaje += ", Motivo: " + motivo;
 		usuario.agregarNotificacion(mensaje);
 	}
