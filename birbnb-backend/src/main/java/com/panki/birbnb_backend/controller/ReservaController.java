@@ -6,10 +6,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.panki.birbnb_backend.dto.MotivoDTO;
 import com.panki.birbnb_backend.dto.ReservaDTO;
 import com.panki.birbnb_backend.model.Reserva;
 import com.panki.birbnb_backend.service.ReservaService;
@@ -37,6 +39,11 @@ public class ReservaController {
 	@PostMapping
 	public @ResponseBody Reserva postReserva(@RequestBody ReservaDTO reservaDTO) {
 		return reservaService.post(reservaDTO);
+	}
+
+	@PutMapping(path = "/{resId}/cancelar")
+	public @ResponseBody Reserva cancelarReserva(@PathVariable Long resId, @RequestBody MotivoDTO motivoDTO) {
+		return reservaService.cancelarReserva(resId, motivoDTO);
 	}
 
 }

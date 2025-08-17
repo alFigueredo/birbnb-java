@@ -16,16 +16,15 @@ public class FactoryNotificacion {
 		return mensaje;
 	}
 
-	public static void generarNotificacion(Reserva reserva) {
-		final Usuario usuario = obtenerUsuario(reserva);
-		String mensaje = crearSegunReserva(reserva);
-		usuario.agregarNotificacion(mensaje);
-	}
-
 	public static void generarNotificacion(Reserva reserva, String motivo) {
 		final Usuario usuario = obtenerUsuario(reserva);
 		String mensaje = crearSegunReserva(reserva);
-		mensaje.concat(", Motivo: " + motivo);
+		if (!motivo.isBlank()) {
+			System.out.println("[DEBUG]" + motivo);
+			// mensaje.concat(", Motivo: " + motivo);
+			mensaje += ", Motivo: " + motivo;
+			System.out.println("[DEBUG]" + mensaje);
+		}
 		usuario.agregarNotificacion(mensaje);
 	}
 

@@ -24,7 +24,7 @@ GET http://localhost:8080/api/usuarios/3802 HTTP/1.1
 
 ### get_notificaciones_usuario
 
-GET http://localhost:8080/api/usuarios/5453/notificaciones HTTP/1.1
+GET http://localhost:8080/api/usuarios/6005/notificaciones HTTP/1.1
 
 ### get_notificaciones_usuario_leidas
 
@@ -56,11 +56,20 @@ POST http://localhost:8080/api/reservas HTTP/1.1
 Content_Type: application/json
 
 {
-	"huespedReservadorId": 5152,
+	"huespedReservadorId": 6702,
 	"cantHuespedes": 3,
-	"alojamientoId": 5152,
+	"alojamientoId": 6702,
 	"rangoFechas": {
 		"fechaInicio": "2025-09-15",
 		"fechaFin": "2025-09-17"
 	}
+}
+
+### cancelar_reserva
+
+PUT http://localhost:8080/api/reservas/6707/cancelar HTTP/1.1
+Content_Type: application/json
+
+{
+	"motivo": "Se me retrasó el avión, no llego, lo siento"
 }
