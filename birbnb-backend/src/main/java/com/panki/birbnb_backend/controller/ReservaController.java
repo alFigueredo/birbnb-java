@@ -46,4 +46,14 @@ public class ReservaController {
 		return reservaService.cancelarReserva(resId, motivoDTO);
 	}
 
+	@PutMapping(path = "/{resId}/confirmar")
+	public @ResponseBody Reserva confirmarReserva(@PathVariable Long resId) {
+		return reservaService.confirmarReserva(resId);
+	}
+
+	@PutMapping(path = "/{resId}/rechazar")
+	public @ResponseBody Reserva rechazarReserva(@PathVariable Long resId, @RequestBody MotivoDTO motivoDTO) {
+		return reservaService.rechazarReserva(resId, motivoDTO);
+	}
+
 }

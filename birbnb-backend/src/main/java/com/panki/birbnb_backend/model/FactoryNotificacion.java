@@ -3,7 +3,7 @@ package com.panki.birbnb_backend.model;
 public class FactoryNotificacion {
 
 	private static Usuario obtenerUsuario(Reserva reserva) {
-		return reserva.reservaConfirmadaRechazada() ? reserva.getHuespedReservador()
+		return reserva.reservaRespondidaPorAnfitrion() ? reserva.getHuespedReservador()
 				: reserva.getAlojamiento().getAnfitrion();
 	}
 
@@ -19,12 +19,8 @@ public class FactoryNotificacion {
 	public static void generarNotificacion(Reserva reserva, String motivo) {
 		final Usuario usuario = obtenerUsuario(reserva);
 		String mensaje = crearSegunReserva(reserva);
-		if (!motivo.isBlank()) {
-			System.out.println("[DEBUG]" + motivo);
-			// mensaje.concat(", Motivo: " + motivo);
+		if (!motivo.isBlank())
 			mensaje += ", Motivo: " + motivo;
-			System.out.println("[DEBUG]" + mensaje);
-		}
 		usuario.agregarNotificacion(mensaje);
 	}
 

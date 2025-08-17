@@ -126,7 +126,7 @@ public class Reserva {
 		return getEstadoReserva() == EstadoReserva.CANCELADA || getEstadoReserva() == EstadoReserva.RECHAZADA;
 	}
 
-	public boolean reservaConfirmadaRechazada() {
+	public boolean reservaRespondidaPorAnfitrion() {
 		return getEstadoReserva() == EstadoReserva.CONFIRMADA || getEstadoReserva() == EstadoReserva.RECHAZADA;
 	}
 

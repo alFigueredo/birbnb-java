@@ -64,9 +64,27 @@ public class ReservaService {
 
 	public Reserva cancelarReserva(Long id, MotivoDTO motivoDTO) {
 		final Reserva reserva = getById(id);
-		if (!reserva.getRangoFechas().getFechaInicio().isAfter(LocalDate.now()))
+		if (!reserva.getRangoFechas().antesDeFechaInicio())
 			throw new ConflictException("Fecha límite de cancelación superada");
 		reserva.actualizarEstado(EstadoReserva.CANCELADA);
+		FactoryNotificacion.generarNotificacion(reserva, motivoDTO.getMotivo());
+		return reservaRepository.save(reserva);
+	}
+
+	public Reserva confirmarReserva(Long id) {
+		final Reserva reserva = getById(id);
+		if (!reserva.getRangoFechas().antesDeFechaInicio())
+			throw new ConflictException("Fecha límite de confirmación superada");
+		reserva.actualizarEstado(EstadoReserva.CONFIRMADA);
+		FactoryNotificacion.generarNotificacion(reserva, "");
+		return reservaRepository.save(reserva);
+	}
+
+	public Reserva rechazarReserva(Long id, MotivoDTO motivoDTO) {
+		final Reserva reserva = getById(id);
+		if (!reserva.getRangoFechas().antesDeFechaInicio())
+			throw new ConflictException("Fecha límite de rechazo superada");
+		reserva.actualizarEstado(EstadoReserva.RECHAZADA);
 		FactoryNotificacion.generarNotificacion(reserva, motivoDTO.getMotivo());
 		return reservaRepository.save(reserva);
 	}

@@ -44,6 +44,10 @@ public class RangoFechas {
 		return getFechaFin().compareTo(getFechaInicio());
 	}
 
+	public boolean antesDeFechaInicio() {
+		return getFechaInicio().isAfter(LocalDate.now());
+	}
+
 	public void modificarRangoFechas(RangoFechas rangoFechas) {
 		setFechaInicio(rangoFechas.getFechaInicio());
 		setFechaFin(rangoFechas.getFechaInicio());
