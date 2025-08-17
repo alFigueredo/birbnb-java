@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.panki.birbnb_backend.model.Notificacion;
+import com.panki.birbnb_backend.model.Reserva;
 import com.panki.birbnb_backend.model.Usuario;
 import com.panki.birbnb_backend.service.UsuarioService;
 
@@ -45,6 +46,11 @@ public class UsuarioController {
 	@GetMapping(path = "/{userId}/notificaciones/sinleer")
 	public @ResponseBody List<Notificacion> getNotificacionesSinLeer(@PathVariable Long userId) {
 		return usuarioService.obtenerNotificacionesSinLeer(userId);
+	}
+
+	@GetMapping(path = "/{userId}/reservas")
+	public @ResponseBody List<Reserva> getReservas(@PathVariable Long userId) {
+		return usuarioService.getReservas(userId);
 	}
 
 }

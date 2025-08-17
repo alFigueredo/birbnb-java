@@ -34,6 +34,10 @@ GET http://localhost:8080/api/usuarios/5453/notificaciones/leidas HTTP/1.1
 
 GET http://localhost:8080/api/usuarios/5453/notificaciones/sinleer HTTP/1.1
 
+### get_reservas_usuario
+
+GET http://localhost:8080/api/usuarios/9152/reservas HTTP/1.1
+
 ### get_alojamientos
 
 GET http://localhost:8080/api/alojamientos HTTP/1.1

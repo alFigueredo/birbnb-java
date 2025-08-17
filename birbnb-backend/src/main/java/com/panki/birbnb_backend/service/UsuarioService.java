@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.panki.birbnb_backend.exception.NotFoundException;
 import com.panki.birbnb_backend.model.Notificacion;
+import com.panki.birbnb_backend.model.Reserva;
 import com.panki.birbnb_backend.model.Usuario;
 import com.panki.birbnb_backend.repository.UsuarioRepository;
 
@@ -40,6 +41,11 @@ public class UsuarioService {
 	public List<Notificacion> obtenerNotificacionesSinLeer(Long id) {
 		final Usuario usuario = getById(id);
 		return usuario.obtenerNotificacionesSinLeer();
+	}
+
+	public List<Reserva> getReservas(Long id) {
+		final Usuario usuario = getById(id);
+		return usuario.getReservas();
 	}
 
 }
