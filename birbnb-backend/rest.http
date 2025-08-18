@@ -46,6 +46,11 @@ GET http://localhost:8080/api/alojamientos HTTP/1.1
 
 GET http://localhost:8080/api/alojamientos/1 HTTP/1.1
 
+### filtrar_alojamientos
+
+GET http://localhost:8080/api/alojamientos?precioGt=5000
+  &precioLt=7000 HTTP/1.1
+
 ### get_reservas
 
 GET http://localhost:8080/api/reservas HTTP/1.1
@@ -60,9 +65,9 @@ POST http://localhost:8080/api/reservas HTTP/1.1
 Content_Type: application/json
 
 {
-	"huespedReservadorId": 9102,
+	"huespedReservadorId": 9202,
 	"cantHuespedes": 3,
-	"alojamientoId": 9102,
+	"alojamientoId": 9202,
 	"rangoFechas": {
 		"fechaInicio": "2025-08-21",
 		"fechaFin": "2025-08-24"
@@ -86,11 +91,11 @@ Content_Type: application/json
 
 ### cancelar_reserva
 
-PUT http://localhost:8080/api/reservas/8257/cancelar HTTP/1.1
+PUT http://localhost:8080/api/reservas/9207/cancelar HTTP/1.1
 Content_Type: application/json
 
 {
-	"motivo": "Se me retrasó el avión, no llego, lo siento"
+	"motivo": ""
 }
 
 ### confirmar_reserva

@@ -35,7 +35,7 @@ public class Alojamiento {
 	private final Usuario anfitrion;
 	private final String nombre;
 	private final String descripcion;
-	private final float precioPorNoche;
+	private final int precioPorNoche;
 	@Enumerated(EnumType.STRING)
 	private final Moneda moneda;
 	private final String horarioCheckIn;
@@ -67,7 +67,7 @@ public class Alojamiento {
 		this.caracteristicas = null;
 	}
 
-	public Alojamiento(Usuario anfitrion, String nombre, String descripcion, float precioPorNoche, Moneda moneda,
+	public Alojamiento(Usuario anfitrion, String nombre, String descripcion, int precioPorNoche, Moneda moneda,
 			String horarioCheckIn, String horarioCheckOut, Direccion direccion, int cantHuespedesMax,
 			Set<Caracteristica> caracteristicas) {
 		this.anfitrion = anfitrion;
@@ -102,7 +102,7 @@ public class Alojamiento {
 		return descripcion;
 	}
 
-	public float getPrecioPorNoche() {
+	public int getPrecioPorNoche() {
 		return precioPorNoche;
 	}
 

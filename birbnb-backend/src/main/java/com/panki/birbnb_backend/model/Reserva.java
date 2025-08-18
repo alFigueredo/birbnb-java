@@ -37,7 +37,7 @@ public class Reserva {
 	private final RangoFechas rangoFechas;
 	@Enumerated(EnumType.STRING)
 	private EstadoReserva estadoReserva = EstadoReserva.PENDIENTE;
-	private final float precioPorNoche;
+	private final int precioPorNoche;
 
 	protected Reserva() {
 		this.fechaAlta = null;
@@ -101,7 +101,7 @@ public class Reserva {
 		return estadoReserva;
 	}
 
-	public float getPrecioPorNoche() {
+	public int getPrecioPorNoche() {
 		return precioPorNoche;
 	}
 
