@@ -1,10 +1,12 @@
 package com.panki.birbnb_backend.specs;
 
 import java.util.Locale;
+import java.util.Set;
 
 import org.springframework.data.jpa.domain.Specification;
 
 import com.panki.birbnb_backend.model.Alojamiento;
+import com.panki.birbnb_backend.model.enums.Caracteristica;
 
 import jakarta.persistence.criteria.Expression;
 import jakarta.persistence.criteria.Predicate;
@@ -37,6 +39,18 @@ public class AlojamientoSpecs {
 			if (precioLt == null || precioLt == 0)
 				return null;
 			return cb.lessThanOrEqualTo(root.get("precioPorNoche"), precioLt);
+		};
+	}
+
+	public static Specification<Alojamiento> conCaracteristicas(Set<Caracteristica> caracteristicas) {
+		return (root, query, cb) -> {
+			if (caracteristicas == null || caracteristicas.isEmpty())
+				return null;
+			final Expression<Set<Caracteristica>> field = root.get("caracteristicas");
+			Predicate p = cb.conjunction();
+			for (final Caracteristica caracteristica : caracteristicas)
+				p = cb.and(p, cb.isMember(caracteristica, field));
+			return p;
 		};
 	}
 

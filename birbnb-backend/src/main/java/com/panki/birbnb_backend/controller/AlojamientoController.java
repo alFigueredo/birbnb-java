@@ -1,5 +1,7 @@
 package com.panki.birbnb_backend.controller;
 
+import java.util.Set;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.panki.birbnb_backend.dto.FiltrosAlojamientoDTO;
 import com.panki.birbnb_backend.model.Alojamiento;
+import com.panki.birbnb_backend.model.enums.Caracteristica;
 import com.panki.birbnb_backend.service.AlojamientoService;
 
 @Controller
@@ -35,11 +38,12 @@ public class AlojamientoController {
 			@RequestParam(required = false) Integer precioGt,
 			@RequestParam(required = false) Integer precioLt,
 			@RequestParam(required = false) Integer cantHuespedes,
+			@RequestParam(required = false) Set<Caracteristica> caracteristicas,
 			@RequestParam(required = false) String ciudad,
 			@RequestParam(required = false) String pais,
 			@PageableDefault(size = 12) Pageable pageable) {
 		final FiltrosAlojamientoDTO filtrosAlojamientoDTO = new FiltrosAlojamientoDTO(nombre, precioGt, precioLt,
-				cantHuespedes, ciudad, pais);
+				cantHuespedes, caracteristicas, ciudad, pais);
 		return alojamientoService.filtrarAlojamientos(filtrosAlojamientoDTO, pageable);
 	}
 

@@ -30,6 +30,7 @@ public class AlojamientoService {
 				.allOf(AlojamientoSpecs.conNombre(filtrosAlojamientoDTO.getNombre()),
 						AlojamientoSpecs.conPrecioGt(filtrosAlojamientoDTO.getPrecioGt()),
 						AlojamientoSpecs.conPrecioLt(filtrosAlojamientoDTO.getPrecioLt()),
+						AlojamientoSpecs.conCaracteristicas(filtrosAlojamientoDTO.getCaracteristicas()),
 						AlojamientoSpecs.conCiudad(filtrosAlojamientoDTO.getCiudad()),
 						AlojamientoSpecs.conPais(filtrosAlojamientoDTO.getPais()));
 		return alojamientoRepository.findAll(spec, pageable);
