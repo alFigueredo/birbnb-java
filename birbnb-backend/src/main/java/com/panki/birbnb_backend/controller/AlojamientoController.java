@@ -24,11 +24,6 @@ public class AlojamientoController {
 		this.alojamientoService = alojamientoService;
 	}
 
-	// @GetMapping
-	// public @ResponseBody List<Alojamiento> getAllAlojamientos() {
-	// return alojamientoService.getAll();
-	// }
-
 	@GetMapping(path = "/{notifId}")
 	public @ResponseBody Alojamiento getAlojamientoById(@PathVariable Long notifId) {
 		return alojamientoService.getById(notifId);
@@ -40,9 +35,11 @@ public class AlojamientoController {
 			@RequestParam(required = false) Integer precioGt,
 			@RequestParam(required = false) Integer precioLt,
 			@RequestParam(required = false) Integer cantHuespedes,
+			@RequestParam(required = false) String ciudad,
+			@RequestParam(required = false) String pais,
 			@PageableDefault(size = 12) Pageable pageable) {
 		final FiltrosAlojamientoDTO filtrosAlojamientoDTO = new FiltrosAlojamientoDTO(nombre, precioGt, precioLt,
-				cantHuespedes);
+				cantHuespedes, ciudad, pais);
 		return alojamientoService.filtrarAlojamientos(filtrosAlojamientoDTO, pageable);
 	}
 

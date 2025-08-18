@@ -20,10 +20,6 @@ public class AlojamientoService {
 		this.alojamientoRepository = alojamientoRepository;
 	}
 
-	// public List<Alojamiento> getAll() {
-	// return alojamientoRepository.findAll();
-	// }
-
 	public Alojamiento getById(Long id) {
 		return alojamientoRepository.findById(id)
 				.orElseThrow(() -> new NotFoundException("El alojamiento " + id + " no existe"));
@@ -33,7 +29,9 @@ public class AlojamientoService {
 		Specification<Alojamiento> spec = Specification
 				.allOf(AlojamientoSpecs.conNombre(filtrosAlojamientoDTO.getNombre()),
 						AlojamientoSpecs.conPrecioGt(filtrosAlojamientoDTO.getPrecioGt()),
-						AlojamientoSpecs.conPrecioLt(filtrosAlojamientoDTO.getPrecioLt()));
+						AlojamientoSpecs.conPrecioLt(filtrosAlojamientoDTO.getPrecioLt()),
+						AlojamientoSpecs.conCiudad(filtrosAlojamientoDTO.getCiudad()),
+						AlojamientoSpecs.conPais(filtrosAlojamientoDTO.getPais()));
 		return alojamientoRepository.findAll(spec, pageable);
 	}
 

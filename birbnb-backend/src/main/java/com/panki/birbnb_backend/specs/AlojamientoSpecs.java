@@ -39,4 +39,31 @@ public class AlojamientoSpecs {
 			return cb.lessThanOrEqualTo(root.get("precioPorNoche"), precioLt);
 		};
 	}
+
+	public static Specification<Alojamiento> conCiudad(String ciudad) {
+		return (root, query, cb) -> {
+			if (ciudad == null || ciudad.isBlank())
+				return null;
+			final String[] tokens = ciudad.trim().toLowerCase(Locale.ROOT).split("\\s+");
+			final Expression<String> field = cb.lower(root.get("direccion").get("ciudad").get("nombre"));
+			Predicate p = cb.conjunction();
+			for (final String token : tokens)
+				p = cb.and(p, cb.like(field, "%" + token + "%"));
+			return p;
+		};
+	}
+
+	public static Specification<Alojamiento> conPais(String pais) {
+		return (root, query, cb) -> {
+			if (pais == null || pais.isBlank())
+				return null;
+			final String[] tokens = pais.trim().toLowerCase(Locale.ROOT).split("\\s+");
+			final Expression<String> field = cb.lower(root.get("direccion").get("ciudad").get("pais").get("nombre"));
+			Predicate p = cb.conjunction();
+			for (final String token : tokens)
+				p = cb.and(p, cb.like(field, "%" + token + "%"));
+			return p;
+		};
+	}
+
 }
