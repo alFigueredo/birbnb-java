@@ -20,10 +20,11 @@ public class RangoFechas {
 	public RangoFechas(LocalDate fechaInicio, LocalDate fechaFin) {
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
+		esValido(getFechaInicio(), getFechaFin());
 	}
 
-	public void esValido() {
-		if (getFechaFin().isBefore(getFechaInicio()))
+	public void esValido(LocalDate fechaInicio, LocalDate fechafin) {
+		if (fechaFin.isBefore(fechaInicio))
 			throw new ValidationException("Rango de fechas incorrecto");
 	}
 
@@ -52,6 +53,7 @@ public class RangoFechas {
 	}
 
 	public void modificarRangoFechas(RangoFechas rangoFechas) {
+		esValido(rangoFechas.getFechaInicio(), rangoFechas.getFechaFin());
 		setFechaInicio(rangoFechas.getFechaInicio());
 		setFechaFin(rangoFechas.getFechaFin());
 	}

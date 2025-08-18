@@ -56,7 +56,6 @@ public class Reserva {
 		this.huespedReservador = huespedReservador;
 		this.cantHuespedes = cantHuespedes;
 		this.alojamiento = alojamiento;
-		rangoFechas.esValido();
 		this.rangoFechas = rangoFechas;
 		this.precioPorNoche = alojamiento.getPrecioPorNoche();
 	}
@@ -114,7 +113,6 @@ public class Reserva {
 	}
 
 	public void setRangoFechas(RangoFechas rangoFechas) {
-		rangoFechas.esValido();
 		getRangoFechas().modificarRangoFechas(rangoFechas);
 	}
 

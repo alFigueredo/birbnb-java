@@ -48,8 +48,8 @@ GET http://localhost:8080/api/alojamientos/1 HTTP/1.1
 
 ### filtrar_alojamientos
 
-GET http://localhost:8080/api/alojamientos?pais=bra
-  &precioGt=5000 HTTP/1.1
+GET http://localhost:8080/api/alojamientos?pais=arg
+  &caracteristicas=WIFI,PISCINA HTTP/1.1
 
 ### get_reservas
 
