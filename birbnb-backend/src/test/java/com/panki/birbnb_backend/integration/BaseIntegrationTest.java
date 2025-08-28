@@ -1,13 +1,18 @@
 package com.panki.birbnb_backend.integration;
 
+import static org.mockito.Mockito.when;
+
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.mockito.Mockito;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import com.panki.birbnb_backend.controller.ReservaController;
+import com.panki.birbnb_backend.exception.GlobalExceptionHandler;
 import com.panki.birbnb_backend.model.Alojamiento;
 import com.panki.birbnb_backend.model.Ciudad;
 import com.panki.birbnb_backend.model.Direccion;
@@ -18,15 +23,14 @@ import com.panki.birbnb_backend.model.Usuario;
 import com.panki.birbnb_backend.model.enums.Caracteristica;
 import com.panki.birbnb_backend.model.enums.Moneda;
 import com.panki.birbnb_backend.model.enums.TipoUsuario;
+import com.panki.birbnb_backend.repository.ReservaRepository;
 import com.panki.birbnb_backend.service.ReservaService;
 
 abstract class BaseIntegrationTest {
 
-	@Autowired
-	protected MockMvc mockMvc;
-
-	@MockitoBean
+	protected ReservaRepository reservaRepository;
 	protected ReservaService reservaService;
+	protected MockMvc reservaMock;
 
 	protected Usuario anfitrion;
 	protected Set<Caracteristica> caracteristicas;
@@ -40,6 +44,11 @@ abstract class BaseIntegrationTest {
 
 	@BeforeEach
 	public void init() {
+
+		reservaRepository = Mockito.mock(ReservaRepository.class);
+		reservaService = new ReservaService(reservaRepository, null, null);
+		reservaMock = MockMvcBuilders.standaloneSetup(new ReservaController(reservaService))
+				.setControllerAdvice(new GlobalExceptionHandler()).build();
 
 		anfitrion = new Usuario(
 				"John Doe",
@@ -88,5 +97,9 @@ abstract class BaseIntegrationTest {
 				new Reserva(huesped, 4, alojamientos[1], rangoFechas[0])
 		};
 
+		when(reservaRepository.findAll())
+				.thenReturn(List.of(
+						reservas[0],
+						reservas[1]));
 	}
 }
