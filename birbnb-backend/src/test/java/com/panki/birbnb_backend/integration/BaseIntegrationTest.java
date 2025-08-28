@@ -4,6 +4,7 @@ import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -11,6 +12,7 @@ import org.mockito.Mockito;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import com.panki.birbnb_backend.controller.HealthCheckController;
 import com.panki.birbnb_backend.controller.ReservaController;
 import com.panki.birbnb_backend.exception.GlobalExceptionHandler;
 import com.panki.birbnb_backend.model.Alojamiento;
@@ -31,6 +33,7 @@ abstract class BaseIntegrationTest {
 	protected ReservaRepository reservaRepository;
 	protected ReservaService reservaService;
 	protected MockMvc reservaMock;
+	protected MockMvc healthCheckMock;
 
 	protected Usuario anfitrion;
 	protected Set<Caracteristica> caracteristicas;
@@ -48,6 +51,8 @@ abstract class BaseIntegrationTest {
 		reservaRepository = Mockito.mock(ReservaRepository.class);
 		reservaService = new ReservaService(reservaRepository, null, null);
 		reservaMock = MockMvcBuilders.standaloneSetup(new ReservaController(reservaService))
+				.setControllerAdvice(new GlobalExceptionHandler()).build();
+		healthCheckMock = MockMvcBuilders.standaloneSetup(new HealthCheckController())
 				.setControllerAdvice(new GlobalExceptionHandler()).build();
 
 		anfitrion = new Usuario(
@@ -90,16 +95,19 @@ abstract class BaseIntegrationTest {
 				new RangoFechas(LocalDate.of(2025, 5, 3), LocalDate.of(2025, 5, 5)),
 				new RangoFechas(LocalDate.of(2025, 5, 6), LocalDate.of(2025, 5, 9)),
 				new RangoFechas(LocalDate.of(2025, 5, 4), LocalDate.of(2025, 5, 6)),
-				new RangoFechas(LocalDate.of(2025, 5, 3), LocalDate.of(2025, 5, 6)),
-				new RangoFechas(LocalDate.of(2025, 5, 2), LocalDate.of(2025, 5, 5)) };
+				new RangoFechas(LocalDate.of(2025, 5, 10), LocalDate.of(2025, 5, 12)),
+				new RangoFechas(LocalDate.of(2025, 5, 3), LocalDate.of(2025, 5, 5)) };
 		reservas = new Reserva[] {
-				new Reserva(huesped, 4, alojamientos[0], rangoFechas[0]),
-				new Reserva(huesped, 4, alojamientos[1], rangoFechas[0])
+				new Reserva(huesped, 3, alojamientos[0], rangoFechas[0]),
+				new Reserva(huesped, 4, alojamientos[0], rangoFechas[1]),
+				new Reserva(huesped, 3, alojamientos[0], rangoFechas[3])
 		};
 
 		when(reservaRepository.findAll())
-				.thenReturn(List.of(
-						reservas[0],
-						reservas[1]));
+				.thenReturn(List.of(reservas[0], reservas[1], reservas[2]));
+		when(reservaRepository.findById(Long.valueOf(1)))
+				.thenReturn(Optional.of(reservas[0]));
+		// when(reservaRepository.save(any()))
+		// .thenReturn(reservas[0]);
 	}
 }

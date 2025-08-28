@@ -71,11 +71,12 @@ abstract class BaseUnitTest {
 				new RangoFechas(LocalDate.of(2025, 5, 3), LocalDate.of(2025, 5, 5)),
 				new RangoFechas(LocalDate.of(2025, 5, 6), LocalDate.of(2025, 5, 9)),
 				new RangoFechas(LocalDate.of(2025, 5, 4), LocalDate.of(2025, 5, 6)),
-				new RangoFechas(LocalDate.of(2025, 5, 3), LocalDate.of(2025, 5, 6)),
-				new RangoFechas(LocalDate.of(2025, 5, 2), LocalDate.of(2025, 5, 5)) };
+				new RangoFechas(LocalDate.of(2025, 5, 10), LocalDate.of(2025, 5, 12)),
+				new RangoFechas(LocalDate.of(2025, 5, 3), LocalDate.of(2025, 5, 5)) };
 		reservas = new Reserva[] {
-				new Reserva(huesped, 4, alojamientos[0], rangoFechas[0]),
-				new Reserva(huesped, 4, alojamientos[1], rangoFechas[0])
+				new Reserva(huesped, 3, alojamientos[0], rangoFechas[0]),
+				new Reserva(huesped, 4, alojamientos[0], rangoFechas[1]),
+				new Reserva(huesped, 3, alojamientos[0], rangoFechas[3])
 		};
 	}
 }
