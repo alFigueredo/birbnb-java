@@ -1,5 +1,6 @@
 package com.panki.birbnb_backend.integration;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
@@ -25,13 +26,21 @@ import com.panki.birbnb_backend.model.Usuario;
 import com.panki.birbnb_backend.model.enums.Caracteristica;
 import com.panki.birbnb_backend.model.enums.Moneda;
 import com.panki.birbnb_backend.model.enums.TipoUsuario;
+import com.panki.birbnb_backend.repository.AlojamientoRepository;
 import com.panki.birbnb_backend.repository.ReservaRepository;
+import com.panki.birbnb_backend.repository.UsuarioRepository;
+import com.panki.birbnb_backend.service.AlojamientoService;
 import com.panki.birbnb_backend.service.ReservaService;
+import com.panki.birbnb_backend.service.UsuarioService;
 
 abstract class BaseIntegrationTest {
 
 	protected ReservaRepository reservaRepository;
+	protected UsuarioRepository usuarioRepository;
+	protected AlojamientoRepository alojamientoRepository;
 	protected ReservaService reservaService;
+	protected UsuarioService usuarioService;
+	protected AlojamientoService alojamientoService;
 	protected MockMvc reservaMock;
 	protected MockMvc healthCheckMock;
 
@@ -48,8 +57,12 @@ abstract class BaseIntegrationTest {
 	@BeforeEach
 	public void init() {
 
+		usuarioRepository = Mockito.mock(UsuarioRepository.class);
+		alojamientoRepository = Mockito.mock(AlojamientoRepository.class);
 		reservaRepository = Mockito.mock(ReservaRepository.class);
-		reservaService = new ReservaService(reservaRepository, null, null);
+		usuarioService = new UsuarioService(usuarioRepository);
+		alojamientoService = new AlojamientoService(alojamientoRepository);
+		reservaService = new ReservaService(reservaRepository, alojamientoService, usuarioService);
 		reservaMock = MockMvcBuilders.standaloneSetup(new ReservaController(reservaService))
 				.setControllerAdvice(new GlobalExceptionHandler()).build();
 		healthCheckMock = MockMvcBuilders.standaloneSetup(new HealthCheckController())
@@ -105,9 +118,14 @@ abstract class BaseIntegrationTest {
 
 		when(reservaRepository.findAll())
 				.thenReturn(List.of(reservas[0], reservas[1], reservas[2]));
-		when(reservaRepository.findById(Long.valueOf(1)))
+		when(reservaRepository.findById(any()))
 				.thenReturn(Optional.of(reservas[0]));
-		// when(reservaRepository.save(any()))
-		// .thenReturn(reservas[0]);
+		when(usuarioRepository.findById(any()))
+				.thenReturn(Optional.of(huesped));
+		when(alojamientoRepository.findById(any()))
+				.thenReturn(Optional.of(alojamientos[0]));
+		when(reservaRepository.save(any()))
+				.thenReturn(reservas[0]);
+		// verify(reservaRepository).save(any());
 	}
 }

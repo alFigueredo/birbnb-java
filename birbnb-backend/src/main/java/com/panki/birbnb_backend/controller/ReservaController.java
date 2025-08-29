@@ -2,6 +2,7 @@ package com.panki.birbnb_backend.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.panki.birbnb_backend.dto.MotivoDTO;
 import com.panki.birbnb_backend.dto.ReservaDTO;
@@ -37,6 +39,7 @@ public class ReservaController {
 	}
 
 	@PostMapping
+	@ResponseStatus(HttpStatus.CREATED)
 	public @ResponseBody Reserva postReserva(@RequestBody ReservaDTO reservaDTO) {
 		return reservaService.post(reservaDTO);
 	}
