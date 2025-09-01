@@ -23,7 +23,7 @@ public class NotificacionService {
 
 	public Notificacion getById(Long id) {
 		return notificacionRepository.findById(id)
-				.orElseThrow(() -> new NotFoundException("La notificación" + id + " no existe"));
+				.orElseThrow(() -> new NotFoundException("La notificación " + id + " no existe"));
 	}
 
 	public Notificacion marcarComoLeida(Long id) {
