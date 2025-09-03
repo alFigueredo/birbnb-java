@@ -2,6 +2,7 @@ services:
   postgres:
     container_name: "birbnb-postgres"
     image: "postgres:latest"
+    attach: false
     env_file:
       - ./birbnb-backend/.env
     ports:
