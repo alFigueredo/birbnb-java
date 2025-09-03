@@ -8,7 +8,7 @@ on:
 
 jobs:
   test-backend:
-    name: 🧪 Backend Tests (Jest + Supertest)
+    name: 🧪 Backend Tests
     runs-on: ubuntu-latest
 
     steps:
@@ -22,4 +22,5 @@ jobs:
           distribution: "temurin"
 
       - name: Build and Run Tests
+        uses: ../../birbnb-backend
         run: mvn clean verify
