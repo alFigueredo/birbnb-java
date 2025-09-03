@@ -1,0 +1,23 @@
+services:
+  postgres:
+    container_name: "birbnb-postgres"
+    image: "postgres:latest"
+    env_file:
+      - ./birbnb-backend/.env
+    ports:
+      - "5432:5432"
+    volumes:
+      - "postgres-data:/var/lib/postgresql/data"
+
+  birbnb-backend:
+    build: ./birbnb-backend
+    container_name: birbnb-backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    env_file:
+      - ./birbnb-backend/.env
+
+volumes:
+  postgres-data:
