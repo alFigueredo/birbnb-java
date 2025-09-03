@@ -11,6 +11,10 @@ jobs:
     name: 🧪 Backend Tests
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: ./birbnb-backend
+
     steps:
       - name: 📥 Checkout
         uses: actions/checkout@v4
@@ -22,5 +26,4 @@ jobs:
           distribution: "temurin"
 
       - name: Build and Run Tests
-        path: ../../birbnb-backend
         run: mvn clean verify
