@@ -286,12 +286,14 @@ public class DataLoader implements CommandLineRunner {
 		for (final Alojamiento alojamiento : alojamientos)
 			alojamientoRepository.save(alojamiento);
 
+		final int currentYearPlusOne = LocalDate.now().plusYears(1).getYear();
+
 		final RangoFechas[] rangoFechas = {
-				new RangoFechas(LocalDate.of(2025, 7, 1), LocalDate.of(2025, 7, 3)),
-				new RangoFechas(LocalDate.of(2025, 7, 4), LocalDate.of(2025, 7, 6)),
-				new RangoFechas(LocalDate.of(2025, 7, 7), LocalDate.of(2025, 7, 9)),
-				new RangoFechas(LocalDate.of(2025, 7, 10), LocalDate.of(2025, 7, 12)),
-				new RangoFechas(LocalDate.of(2025, 7, 13), LocalDate.of(2025, 7, 15)),
+				new RangoFechas(LocalDate.of(currentYearPlusOne, 7, 1), LocalDate.of(currentYearPlusOne, 7, 3)),
+				new RangoFechas(LocalDate.of(currentYearPlusOne, 7, 4), LocalDate.of(currentYearPlusOne, 7, 6)),
+				new RangoFechas(LocalDate.of(currentYearPlusOne, 7, 7), LocalDate.of(currentYearPlusOne, 7, 9)),
+				new RangoFechas(LocalDate.of(currentYearPlusOne, 7, 10), LocalDate.of(currentYearPlusOne, 7, 12)),
+				new RangoFechas(LocalDate.of(currentYearPlusOne, 7, 13), LocalDate.of(currentYearPlusOne, 7, 15)),
 		};
 
 		final Reserva[] reservas = {

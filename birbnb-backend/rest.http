@@ -2,6 +2,14 @@
 
 GET http://localhost:8080/api/health HTTP/1.1
 
+### swagger_ui
+
+GET http://localhost:8080/swagger-ui.html HTTP/1.1
+
+### api_docs
+
+GET http://localhost:8080/v3/api-docs HTTP/1.1
+
 ### get_notificaciones
 
 GET http://localhost:8080/api/notificaciones HTTP/1.1
