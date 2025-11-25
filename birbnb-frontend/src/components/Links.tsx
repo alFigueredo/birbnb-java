@@ -6,9 +6,9 @@ const links = [
   { name: "Reservas", href: "/reservas" },
 ];
 
-type Props = {
+interface Props {
   setOpen: Dispatch<SetStateAction<boolean>>;
-};
+}
 
 export default function NavLinks({ setOpen }: Props) {
   return (
@@ -16,7 +16,7 @@ export default function NavLinks({ setOpen }: Props) {
       {links.map((link) => (
         <li key={link.name}>
           <Link
-            className="text-black font-medium hover:text-neutral-100 transition-colors duration-200"
+            className="nav-links transition-colors"
             to={link.href}
             onClick={() => setOpen(false)}
           >

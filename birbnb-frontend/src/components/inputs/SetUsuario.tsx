@@ -1,20 +1,22 @@
+import { type Context } from "../../context/useUsuario";
+
 export default function SetUsuario({
   usuarios,
   usuarioActual,
   setUsuarioActual,
-}) {
+}: Context) {
   return (
     <>
-      <label className="mr-2" htmlFor="usuario">
+      <label id="usuario-label" htmlFor="usuario">
         Usuario:
       </label>
       <select
         id="usuario"
-        className={`${usuarioActual ? "text-black" : "text-gray-500"} px-2 py-1 rounded`}
+        className={`${usuarioActual ? "text-black" : "text-gray"}`}
         value={usuarioActual?._id || ""}
         onChange={(e) => {
           const user = usuarios.find((u) => u._id === e.target.value);
-          setUsuarioActual(user);
+          setUsuarioActual?.(user ?? null);
         }}
       >
         {usuarios.map((u) => (

@@ -13,7 +13,7 @@ export default function Header() {
   return (
     <header id="root-header">
       <nav id="root-nav">
-        <div id="logo" className="pl-2 pr-6">
+        <div id="logo">
           <Link to="/">
             <img src="/birbnb.svg" alt="birbnb logo" width={42} height={42} />
           </Link>

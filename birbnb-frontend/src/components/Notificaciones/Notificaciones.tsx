@@ -2,20 +2,28 @@ import { useCallback, useEffect, useState } from "react";
 import NotificacionesLista from "./NotificacionesLista";
 import { getNotificaciones, leerNotificacion } from "../../services/api";
 
-type Props = {
+interface Props {
   userId: string;
+}
+
+export type Notificacion = {
+  fechaAlta: Date;
+  _id: string;
+  id: string;
+  leida: boolean;
+  mensaje: string;
 };
 
 export default function Notificaciones({ userId }: Props) {
   const [mostrarNotis, setMostrarNotis] = useState(false);
-  const [notificaciones, setNotificaciones] = useState([]);
+  const [notificaciones, setNotificaciones] = useState<Notificacion[]>([]);
 
   function toggleCampanita() {
     setMostrarNotis((prev) => !prev);
     if (!mostrarNotis) cargarNotificaciones();
   }
 
-  function sortCriteria(a, b) {
+  function sortCriteria(a: Notificacion, b: Notificacion) {
     if (a.fechaAlta < b.fechaAlta) return 1;
     if (a.fechaAlta > b.fechaAlta) return -1;
     return 0;
@@ -40,7 +48,7 @@ export default function Notificaciones({ userId }: Props) {
     return () => clearInterval(intervalo);
   });
 
-  function marcarComoLeida(idNoti) {
+  function marcarComoLeida(idNoti: string) {
     leerNotificacion(idNoti)
       .then(() => {
         setNotificaciones((prev) =>
@@ -57,19 +65,17 @@ export default function Notificaciones({ userId }: Props) {
   const sinLeerCount = notificaciones.filter((n) => !n.leida).length;
 
   return (
-    <div className="relative px-1 mx-2">
-      <button onClick={toggleCampanita} className="relative">
+    <div id="notificaciones-int">
+      <button onClick={toggleCampanita}>
         <img
           src="/noti.svg"
           alt="Notificaciones"
           width={24}
           height={24}
-          className={`hover:opacity-80 ${sinLeerCount > 0 ? "animate-pulse" : ""}`}
+          className={`${sinLeerCount > 0 ? "animate-pulse" : ""}`}
         />
         {sinLeerCount > 0 && (
-          <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs font-bold rounded-full px-1.5 py-0.5">
-            {sinLeerCount}
-          </span>
+          <span className="sin-leer-count">{sinLeerCount}</span>
         )}
       </button>
 

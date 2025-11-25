@@ -3,5 +3,6 @@
   justify-content: center;
   background: #a6a09bd0;
   padding: calc(var(--spacing) * 1) 0;
+  margin: 0;
   z-index: 30;
 }

@@ -2,9 +2,9 @@ import { useState, useEffect, type ReactNode } from "react";
 import { getUsuarios } from "../services/api";
 import { UserContext, type Usuario } from "./useUsuario";
 
-type Props = {
+interface Props {
   children: ReactNode;
-};
+}
 
 export default function UserProvider({ children }: Props) {
   const [usuarios, setUsuarios] = useState([
