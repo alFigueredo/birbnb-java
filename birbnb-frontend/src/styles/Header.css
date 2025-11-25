@@ -1,0 +1,87 @@
+#root-header {
+  width: 100%;
+  background: #a6a09bd0;
+  backdrop-filter: blur(12px);
+  box-shadow:
+    0 4px 6px -1px rgb(0 0 0 / 0.1),
+    0 2px 4px -2px rgb(0 0 0 / 0.1);
+  position: fixed;
+  z-index: 50;
+}
+
+#root-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing);
+  padding: calc(var(--spacing) * 3);
+  height: calc(var(--spacing) * 16);
+}
+
+#logo {
+  padding-left: calc(var(--spacing) * 2);
+  padding-right: calc(var(--spacing) * 6);
+}
+
+#sandwich-logo {
+  @media (width >= 40rem) {
+    display: none;
+  }
+  font-size: 1.25rem;
+  line-height: calc(1.75 / 1.25);
+  margin-left: auto;
+  margin-right: calc(var(--spacing) * 5);
+}
+
+#nav-links,
+#usuario-setter,
+#notificaciones {
+  display: none;
+  @media (width >= 40rem) {
+    display: flex;
+  }
+  align-items: center;
+}
+
+#nav-links {
+  gap: calc(var(--spacing) * 6);
+  margin-right: auto;
+}
+
+#notificaciones {
+  margin-right: calc(var(--spacing) * 1);
+}
+
+@keyframes fade-in-down {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-down {
+  animation: fade-in-down 0.5s ease-out both;
+}
+
+#sandwich-menu {
+  @media (width >= 40rem) {
+    display: hidden;
+  }
+  background: #a6a09bd0;
+  width: 100%;
+  z-index: 20;
+  padding: 0 calc(var(--spacing) * 4);
+  & > :not(:last-child) {
+    --value: 3;
+    --tw-space-y-reverse: 0;
+    margin-block-start: calc(
+      calc(var(--spacing) * var(--value)) * var(--tw-space-y-reverse)
+    );
+    margin-block-end: calc(
+      calc(var(--spacing) * var(--value)) * calc(1 - var(--tw-space-y-reverse))
+    );
+  }
+}

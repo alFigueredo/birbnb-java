@@ -1,0 +1,55 @@
+#main-home {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin-top: calc(var(--spacing) * 20);
+  place-items: center;
+  text-align: center;
+  padding: calc(var(--spacing) * 10) calc(var(--spacing) * 4);
+  background-image: linear-gradient(to bottom, #f9f9f9, #e5e5e5);
+}
+
+.transition-transform {
+  transition-property: transform, translate, scale, rotate;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#birbnb-div:hover {
+  scale: 105%;
+}
+
+#birbnb-div img {
+  margin-bottom: calc(var(--spacing) * 4);
+}
+
+#title-home {
+  font-size: 2.25rem;
+  line-height: calc(2.5 / 2.25);
+  font-weight: 800;
+  margin-bottom: calc(var(--spacing) * 4);
+  color: #292524;
+}
+
+#paragraph-home {
+  font-size: 1.125rem;
+  line-height: calc(1.75 / 1.125);
+  max-width: 36rem;
+  color: #364153;
+}
+
+#boton-alojamientos {
+  margin-top: calc(var(--spacing) * 6);
+  padding: calc(var(--spacing) * 2) calc(var(--spacing) * 6);
+  background-color: #1447e6;
+  color: #fff;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  box-shadow:
+    0 1px 3px 0 rgb(0 0 0 / 0.1),
+    0 1px 2px -1px rgb(0 0 0 / 0.1);
+}
+
+#boton-alojamientos:hover {
+  background-color: #193cb8;
+}
