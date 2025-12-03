@@ -27,7 +27,7 @@ export default function NotificacionesLista({
               key={i}
               onClick={() => {
                 setExpandida(estaExpandida ? null : i);
-                if (!n.leida) marcarComoLeida(n._id || n.id);
+                if (!n.leida) marcarComoLeida(n.id);
               }}
               className={`div-mensaje ${
                 n.leida ? "mensaje-leido" : "mensaje-sin-leer"

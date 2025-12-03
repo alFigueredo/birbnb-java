@@ -36,7 +36,7 @@ export default function Header() {
           />
         </div>
         <div id="notificaciones">
-          <Notificaciones userId={usuarioActual?._id || ""} />
+          <Notificaciones userId={usuarioActual?.id || ""} />
         </div>
       </nav>
       {open && (

@@ -6,7 +6,7 @@ import {
 } from "react";
 
 export type Usuario = {
-  _id: string;
+  id: string;
   nombre: string;
 };
 

@@ -1,74 +1,84 @@
 import axios from "axios";
 
 const API_BASE_URL =
-  import.meta.env.VITE_PUBLIC_SERVER_URL || "http://localhost:8080";
+  (import.meta.env.VITE_PUBLIC_SERVER_URL || "http://localhost:8080") + "/api";
 
 export const getUsuarios = async () => {
-  const res = await axios.get(`${API_BASE_URL}/usuario`);
+  const res = await axios.get(`${API_BASE_URL}/usuarios`);
   return res;
 };
 
 export const getAlojamiento = async (alojaId: string) => {
-  const res = await axios.get(`${API_BASE_URL}/alojamiento/${alojaId}`);
+  const res = await axios.get(`${API_BASE_URL}/alojamientos/${alojaId}`);
   return res;
 };
 
 export const postReserva = async (reserva) => {
-  await axios.post(`${API_BASE_URL}/reserva`, reserva);
+  await axios.post(`${API_BASE_URL}/reservas`, reserva);
 };
 
 export const getNotificaciones = async (userId: string) => {
-  const res = await axios.get(`${API_BASE_URL}/usuario/${userId}/notificacion`);
+  const res = await axios.get(
+    `${API_BASE_URL}/usuarios/${userId}/notificaciones`,
+  );
   return res;
 };
 
 export const getReservas = async (usuarioId: string) => {
-  const res = await axios.get(`${API_BASE_URL}/huesped/${usuarioId}/reserva`);
+  const res = await axios.get(`${API_BASE_URL}/usuarios/${usuarioId}/reservas`);
   return res;
 };
 
 export const getReservasAnfitrion = async (usuarioId: string) => {
-  const res = await axios.get(`${API_BASE_URL}/anfitrion/${usuarioId}/reserva`);
+  const res = await axios.get(`${API_BASE_URL}/usuarios/${usuarioId}/reservas`);
   return res;
 };
 
-export const getAlojamientos = async (filtros) => {
+export const getAlojamientos = async (filtros: { [index: string]: string }) => {
   const queryString = new URLSearchParams(filtros).toString();
-  const req = `${API_BASE_URL}/alojamiento${queryString ? `?${queryString}` : ""}`;
+  const req = `${API_BASE_URL}/alojamientos${queryString ? `?${queryString}` : ""}`;
   const res = await axios.get(req);
   return res;
 };
 
 export const leerNotificacion = async (notiId: string) => {
-  const res = await axios.put(`${API_BASE_URL}/notificacion/${notiId}/leer`);
+  const res = await axios.put(`${API_BASE_URL}/notificaciones/${notiId}/leer`);
   return res;
 };
 
 export const putReserva = async (reserva) => {
   const res = await axios.put(
-    `${API_BASE_URL}/reserva/${reserva._id}`,
+    `${API_BASE_URL}/reservas/${reserva.id}`,
     reserva,
   );
   return res;
 };
 
 export const cancelarReserva = async (reservaId: string, motivo: string) => {
-  const res = await axios.put(`${API_BASE_URL}/reserva/${reservaId}/cancelar`, {
-    _id: reservaId,
-    motivo,
-  });
+  const res = await axios.put(
+    `${API_BASE_URL}/reservas/${reservaId}/cancelar`,
+    {
+      id: reservaId,
+      motivo,
+    },
+  );
   return res;
 };
 
 export const confirmarReserva = async (reservaId: string) => {
-  const res = await axios.put(`${API_BASE_URL}/reserva/${reservaId}/confirmar`);
+  const res = await axios.put(
+    `${API_BASE_URL}/reservas/${reservaId}/confirmar`,
+  );
   return res;
 };
 
 export const rechazarReserva = async (reservaId: string, motivo: string) => {
-  const res = await axios.put(`${API_BASE_URL}/reserva/${reservaId}/rechazar`, {
-    _id: reservaId,
-    motivo,
-  });
+  const res = await axios.put(
+    `${API_BASE_URL}/reservas/${reservaId}/rechazar`,
+    {
+      id: reservaId,
+      motivo,
+    },
+  );
   return res;
 };

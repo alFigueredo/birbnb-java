@@ -8,7 +8,6 @@ interface Props {
 
 export type Notificacion = {
   fechaAlta: Date;
-  _id: string;
   id: string;
   leida: boolean;
   mensaje: string;
@@ -52,9 +51,7 @@ export default function Notificaciones({ userId }: Props) {
     leerNotificacion(idNoti)
       .then(() => {
         setNotificaciones((prev) =>
-          prev.map((n) =>
-            n._id === idNoti || n.id === idNoti ? { ...n, leida: true } : n,
-          ),
+          prev.map((n) => (n.id === idNoti ? { ...n, leida: true } : n)),
         );
       })
       .catch((err) =>

@@ -13,14 +13,14 @@ export default function SetUsuario({
       <select
         id="usuario"
         className={`${usuarioActual ? "text-black" : "text-gray"}`}
-        value={usuarioActual?._id || ""}
+        value={usuarioActual?.id || ""}
         onChange={(e) => {
-          const user = usuarios.find((u) => u._id === e.target.value);
+          const user = usuarios.find((u) => u.id === e.target.value);
           setUsuarioActual?.(user ?? null);
         }}
       >
         {usuarios.map((u) => (
-          <option key={u._id} value={u._id}>
+          <option key={u.id} value={u._id}>
             {u.nombre}
           </option>
         ))}

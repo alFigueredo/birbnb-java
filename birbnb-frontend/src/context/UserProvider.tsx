@@ -8,7 +8,7 @@ interface Props {
 
 export default function UserProvider({ children }: Props) {
   const [usuarios, setUsuarios] = useState([
-    { _id: "0", nombre: "Cargando usuarios..." },
+    { id: "0", nombre: "Cargando usuarios..." },
   ]);
   const [usuarioActual, setUsuarioActual] = useState<Usuario | null>(null);
 
