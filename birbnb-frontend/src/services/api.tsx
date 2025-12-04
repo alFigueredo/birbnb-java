@@ -1,4 +1,6 @@
 import axios from "axios";
+import type { PostReserva } from "../components/Formulario";
+import type { PutReserva } from "../components/Reservas/FormularioEditarReserva.tsx";
 
 const API_BASE_URL =
   (import.meta.env.VITE_PUBLIC_SERVER_URL || "http://localhost:8080") + "/api";
@@ -13,7 +15,7 @@ export const getAlojamiento = async (alojaId: string) => {
   return res;
 };
 
-export const postReserva = async (reserva) => {
+export const postReserva = async (reserva: PostReserva) => {
   await axios.post(`${API_BASE_URL}/reservas`, reserva);
 };
 
@@ -46,7 +48,7 @@ export const leerNotificacion = async (notiId: string) => {
   return res;
 };
 
-export const putReserva = async (reserva) => {
+export const putReserva = async (reserva: PutReserva) => {
   const res = await axios.put(
     `${API_BASE_URL}/reservas/${reserva.id}`,
     reserva,

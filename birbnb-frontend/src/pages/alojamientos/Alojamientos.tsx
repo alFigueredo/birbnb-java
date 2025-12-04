@@ -8,6 +8,7 @@ import Paginador, {
   type Pagina,
 } from "../../components/Alojamientos/Paginador";
 import type { Filtro } from "../../components/Filtros";
+import type { Usuario } from "../../context/useUsuario";
 
 export type Direccion = {
   calle: string;
@@ -23,9 +24,10 @@ export type Foto = {
 
 export type Alojamiento = {
   [index: string]: unknown;
-  id: string;
+  id: number;
   nombre: string;
   descripcion: string;
+  anfitrion: Usuario;
   precioPorNoche: number;
   cantHuespedesMax: number;
   direccion: Direccion;
@@ -65,7 +67,6 @@ export default function Alojamientos() {
       page: pagina.page - 1,
     });
     const res = await getAlojamientos(filtrosLimpios);
-    console.log(res.data);
     setAlojamientos(res.data.content || []);
     const nueva = {
       page: res.data.number + 1 || 1,
@@ -73,7 +74,6 @@ export default function Alojamientos() {
       total: res.data.totalElements || 0,
       cantPaginas: res.data.totalPages || 0,
     };
-    console.log(res.data);
     setPagina(nueva);
   }, [filtros, pagina.page]);
 

@@ -6,8 +6,9 @@ import {
 } from "react";
 
 export type Usuario = {
-  id: string;
+  id: number;
   nombre: string;
+  tipo: string;
 };
 
 export type Context = {

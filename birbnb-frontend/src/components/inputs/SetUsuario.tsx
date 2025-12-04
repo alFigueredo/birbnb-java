@@ -15,12 +15,12 @@ export default function SetUsuario({
         className={`${usuarioActual ? "text-black" : "text-gray"}`}
         value={usuarioActual?.id || ""}
         onChange={(e) => {
-          const user = usuarios.find((u) => u.id === e.target.value);
+          const user = usuarios.find((u) => u.id === parseInt(e.target.value));
           setUsuarioActual?.(user ?? null);
         }}
       >
         {usuarios.map((u) => (
-          <option key={u.id} value={u._id}>
+          <option key={u.id} value={u.id}>
             {u.nombre}
           </option>
         ))}
