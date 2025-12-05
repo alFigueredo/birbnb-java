@@ -36,7 +36,7 @@ export default function Header() {
           />
         </div>
         <div id="notificaciones">
-          <Notificaciones userId={usuarioActual?.id || ""} />
+          <Notificaciones userId={usuarioActual?.id.toString() || ""} />
         </div>
       </nav>
       {open && (

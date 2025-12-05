@@ -18,5 +18,20 @@ services:
     env_file:
       - ./birbnb-backend/.env
 
+  birbnb-frontend:
+    container_name: birbnb-frontend
+    build:
+      context: ./birbnb-frontend
+      args:
+        - NODE_ENV
+    env_file:
+      - ./birbnb-frontend/.env
+    environment:
+      - NODE_ENV=production
+    ports:
+      - "5173:80"
+    depends_on:
+      - birbnb-backend
+
 volumes:
   postgres-data:
