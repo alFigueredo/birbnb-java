@@ -1,11 +1,14 @@
-FROM maven:latest AS build
+FROM eclipse-temurin:21-jdk AS build
 WORKDIR /app
+COPY mvnw .
+COPY .mvn ./.mvn
 COPY pom.xml .
-RUN mvn dependency:go-offline
+RUN chmod +x mvnw
+RUN ./mvnw dependency:go-offline
 COPY src ./src
-RUN mvn clean package -DskipTests
+RUN ./mvnw -B package -DskipTests
 
-FROM eclipse-temurin:latest
+FROM eclipse-temurin:21-jre
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 ENV SPRING_PROFILES_ACTIVE=prod
