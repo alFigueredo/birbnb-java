@@ -93,7 +93,7 @@ public class ReservaService {
 
 	public Reserva modificarReserva(Long id, ReservaDTO reservaDTO) {
 		final Reserva reserva = getById(id);
-		final Alojamiento alojamiento = alojamientoService.getById(reservaDTO.getAlojamientoId());
+		final Alojamiento alojamiento = alojamientoService.getById(reserva.getAlojamientoId());
 
 		if (reserva.getRangoFechas().equals(reservaDTO.getRangoFechas()) &&
 				reserva.getCantHuespedes() == reservaDTO.getCantHuespedes())

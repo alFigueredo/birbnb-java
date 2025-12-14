@@ -21,6 +21,7 @@ export type Reserva = {
   rangoFechas: RangoFechas;
   estadoReserva?: string;
   fechaAlta?: string;
+  fechaActualizacion?: string;
   alojamientoNombre?: string;
 };
 
@@ -36,12 +37,10 @@ export default function ReservasList() {
   }
 
   const obtenerReservas = useCallback(async () => {
-    setLoading(true);
     let res;
     if (usuarioActual?.tipo === "HUESPED")
       res = await getReservas(usuarioActual?.id.toString() || "");
     else res = await getReservasAnfitrion(usuarioActual?.id.toString() || "");
-    console.log(res.data);
     setReservas(res.data.sort(sortCriteria));
   }, [usuarioActual]);
 
@@ -49,6 +48,7 @@ export default function ReservasList() {
     if (!usuarioActual) return;
     (async () => {
       try {
+        setLoading(true);
         obtenerReservas();
       } catch (err) {
         console.error(err);

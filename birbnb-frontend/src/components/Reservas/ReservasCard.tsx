@@ -35,7 +35,7 @@ export default function ReservasCard({ reserva, obtenerReservas }: Props) {
         obtenerReservas();
       })
       .catch((err) => console.error("Error al cancelar la reserva", err))
-      .finally(() => setLoading({ ...loading, cancelar: true }));
+      .finally(() => setLoading({ ...loading, cancelar: false }));
   }
 
   function confirmar() {
@@ -45,7 +45,7 @@ export default function ReservasCard({ reserva, obtenerReservas }: Props) {
         obtenerReservas();
       })
       .catch((err) => console.error("Error al confirmar la reserva", err))
-      .finally(() => setLoading({ ...loading, confirmar: true }));
+      .finally(() => setLoading({ ...loading, confirmar: false }));
   }
 
   function rechazar(motivo: string) {
@@ -55,7 +55,7 @@ export default function ReservasCard({ reserva, obtenerReservas }: Props) {
         obtenerReservas();
       })
       .catch((err) => console.error("Error al rechazar la reserva", err))
-      .finally(() => setLoading({ ...loading, rechazar: true }));
+      .finally(() => setLoading({ ...loading, rechazar: false }));
   }
 
   return (
@@ -79,7 +79,8 @@ export default function ReservasCard({ reserva, obtenerReservas }: Props) {
         Hasta: {formatDate(reserva.rangoFechas?.fechaFin ?? "")}
       </p>
       <p className="reserva-text-sm reserva-text-last">
-        Alta: {new Date(reserva.fechaAlta || "").toLocaleString("es-AR")}
+        Alta:{" "}
+        {new Date(reserva.fechaActualizacion || "").toLocaleString("es-AR")}
       </p>
       <div className="reserva-card-buttons">
         {usuarioActual?.tipo === "HUESPED" &&

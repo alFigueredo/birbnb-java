@@ -55,9 +55,9 @@ export default function Formulario({ aloja }: Props) {
     }
 
     const reserva: PostReserva = {
-      huespedReservador: usuarioActual.id,
+      huespedReservadorId: usuarioActual.id,
       cantHuespedes: detallesReserva.cantHuespedes,
-      alojamiento: aloja.id,
+      alojamientoId: aloja.id,
       rangoFechas: {
         fechaInicio: parseDateAsLocal(detallesReserva.fechaInicio || ""),
         fechaFin: parseDateAsLocal(detallesReserva.fechaFin || ""),
