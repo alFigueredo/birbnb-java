@@ -80,6 +80,10 @@ public class Reserva {
 		return getHuespedReservador().getId();
 	}
 
+	public String getHuespedReservadorNombre() {
+		return getHuespedReservador().getNombre();
+	}
+
 	public int getCantHuespedes() {
 		return cantHuespedes;
 	}
@@ -90,6 +94,18 @@ public class Reserva {
 
 	public Long getAlojamientoId() {
 		return getAlojamiento().getId();
+	}
+
+	public String getAlojamientoNombre() {
+		return getAlojamiento().getNombre();
+	}
+
+	public Long getAnfitrionId() {
+		return getAlojamiento().getAnfitrionId();
+	}
+
+	public String getAnfitrionNombre() {
+		return getAlojamiento().getAnfitrionNombre();
 	}
 
 	public RangoFechas getRangoFechas() {

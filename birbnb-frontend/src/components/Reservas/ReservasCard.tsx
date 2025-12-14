@@ -61,12 +61,12 @@ export default function ReservasCard({ reserva, obtenerReservas }: Props) {
   return (
     <div className="reserva-card">
       <p className="reserva-text-lg">
-        Alojamiento: {reserva.alojamiento?.nombre}
+        Alojamiento: {reserva.alojamientoNombre}
       </p>
       <p className="reserva-text-lg">
         {usuarioActual?.tipo === "HUESPED"
-          ? `Anfitrión: ${reserva.alojamiento?.anfitrion.nombre}`
-          : `Huésped: ${reserva.huespedReservador?.nombre}`}
+          ? `Anfitrión: ${reserva.anfitrionNombre}`
+          : `Huésped: ${reserva.huespedReservadorNombre}`}
       </p>
       <p className="reserva-text-lg">Estado: {reserva.estadoReserva}</p>
       <p className="reserva-text-md">

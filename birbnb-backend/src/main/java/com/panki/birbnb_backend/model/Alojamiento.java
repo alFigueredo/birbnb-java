@@ -94,6 +94,10 @@ public class Alojamiento {
 		return getAnfitrion().getId();
 	}
 
+	public String getAnfitrionNombre() {
+		return getAnfitrion().getNombre();
+	}
+
 	public String getNombre() {
 		return nombre;
 	}

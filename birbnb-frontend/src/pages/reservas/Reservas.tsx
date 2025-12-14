@@ -21,6 +21,7 @@ export type Reserva = {
   rangoFechas: RangoFechas;
   estadoReserva?: string;
   fechaAlta?: string;
+  alojamientoNombre?: string;
 };
 
 export default function ReservasList() {

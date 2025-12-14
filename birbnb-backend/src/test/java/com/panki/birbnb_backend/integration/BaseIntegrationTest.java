@@ -80,7 +80,7 @@ abstract class BaseIntegrationTest {
 		alojamientoRepository = Mockito.mock(AlojamientoRepository.class);
 		reservaRepository = Mockito.mock(ReservaRepository.class);
 		notificacionRepository = Mockito.mock(NotificacionRepository.class);
-		usuarioService = new UsuarioService(usuarioRepository);
+		usuarioService = new UsuarioService(usuarioRepository, reservaRepository);
 		alojamientoService = new AlojamientoService(alojamientoRepository);
 		notificacionService = new NotificacionService(notificacionRepository);
 		reservaService = new ReservaService(reservaRepository, alojamientoService, usuarioService);

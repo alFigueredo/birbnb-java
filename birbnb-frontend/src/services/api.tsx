@@ -27,12 +27,16 @@ export const getNotificaciones = async (userId: string) => {
 };
 
 export const getReservas = async (usuarioId: string) => {
-  const res = await axios.get(`${API_BASE_URL}/usuarios/${usuarioId}/reservas`);
+  const res = await axios.get(
+    `${API_BASE_URL}/huespedes/${usuarioId}/reservas`,
+  );
   return res;
 };
 
 export const getReservasAnfitrion = async (usuarioId: string) => {
-  const res = await axios.get(`${API_BASE_URL}/usuarios/${usuarioId}/reservas`);
+  const res = await axios.get(
+    `${API_BASE_URL}/anfitriones/${usuarioId}/reservas`,
+  );
   return res;
 };
 
