@@ -55,9 +55,8 @@
 .form-div {
   position: absolute;
   top: 25%;
-  transform: translateY(-75%);
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateY(-75%);
   background-color: white;
   padding: calc(var(--spacing) * 5);
   border-radius: 0.75rem;
@@ -69,7 +68,7 @@
   z-index: 10;
   @media (width >= 64rem /* 1024px */) {
     top: 50%;
-    transform: translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
   }
 }
 
