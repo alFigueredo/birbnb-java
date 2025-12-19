@@ -1,7 +1,7 @@
 services:
   postgres:
     container_name: "birbnb-postgres"
-    image: "postgres:latest"
+    image: "postgres:16-alpine"
     attach: false
     env_file:
       - ./birbnb-backend/.env

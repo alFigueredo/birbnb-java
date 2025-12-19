@@ -8,4 +8,3 @@ node_modules/
 README.md
 docker-compose.yml
 Dockerfile
-package-lock.json
