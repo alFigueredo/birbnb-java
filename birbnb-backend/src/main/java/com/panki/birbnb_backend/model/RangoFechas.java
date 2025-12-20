@@ -23,7 +23,7 @@ public class RangoFechas {
 		esValido(getFechaInicio(), getFechaFin());
 	}
 
-	public void esValido(LocalDate fechaInicio, LocalDate fechafin) {
+	public void esValido(LocalDate fechaInicio, LocalDate fechaFin) {
 		if (fechaFin.isBefore(fechaInicio))
 			throw new ValidationException("Rango de fechas incorrecto");
 	}

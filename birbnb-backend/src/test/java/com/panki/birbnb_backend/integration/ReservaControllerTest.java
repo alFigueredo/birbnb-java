@@ -111,4 +111,42 @@ public class ReservaControllerTest extends BaseIntegrationTest {
 				.andExpect(content().string("Fecha límite de cancelación superada"));
 	}
 
+	@Test
+	public void confirmarReserva() throws Exception {
+		reservaMock.perform(put("/api/reservas/1/confirmar")
+				.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andExpect(content().contentType("application/json"));
+	}
+
+	@Test
+	public void rechazarReserva() throws Exception {
+		final JSONObject motivoJson = new JSONObject();
+		motivoJson.put("motivo", "Test");
+		reservaMock.perform(put("/api/reservas/1/rechazar")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(motivoJson.toString()))
+				.andExpect(status().isOk())
+				.andExpect(content().contentType("application/json"));
+	}
+
+	@Test
+	public void putReserva() throws Exception {
+
+		final JSONObject reservaJson = new JSONObject();
+		reservaJson.put("cantHuespedes", 2);
+		final LocalDate fechaInicio = LocalDate.now().plusYears(3);
+		final LocalDate fechaFin = fechaInicio.plusDays(3);
+		JSONObject rangoFechasJson = new JSONObject();
+		rangoFechasJson.put("fechaInicio", fechaInicio.toString());
+		rangoFechasJson.put("fechaFin", fechaFin.toString());
+		reservaJson.put("rangoFechas", rangoFechasJson);
+
+		reservaMock.perform(put("/api/reservas/1")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(reservaJson.toString()))
+				.andExpect(status().isOk())
+				.andExpect(content().contentType("application/json"));
+	}
+
 }

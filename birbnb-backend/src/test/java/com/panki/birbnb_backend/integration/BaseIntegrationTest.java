@@ -21,7 +21,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.panki.birbnb_backend.controller.AlojamientoController;
+import com.panki.birbnb_backend.controller.AnfitrionController;
 import com.panki.birbnb_backend.controller.HealthCheckController;
+import com.panki.birbnb_backend.controller.HuespedController;
 import com.panki.birbnb_backend.controller.NotificacionController;
 import com.panki.birbnb_backend.controller.ReservaController;
 import com.panki.birbnb_backend.controller.UsuarioController;
@@ -59,6 +61,8 @@ abstract class BaseIntegrationTest {
 	protected MockMvc alojamientoMock;
 	protected MockMvc reservaMock;
 	protected MockMvc usuarioMock;
+	protected MockMvc huespedMock;
+	protected MockMvc anfitrionMock;
 	protected MockMvc notificacionMock;
 	protected MockMvc healthCheckMock;
 
@@ -90,6 +94,10 @@ abstract class BaseIntegrationTest {
 		reservaMock = MockMvcBuilders.standaloneSetup(new ReservaController(reservaService))
 				.setControllerAdvice(new GlobalExceptionHandler()).build();
 		usuarioMock = MockMvcBuilders.standaloneSetup(new UsuarioController(usuarioService))
+				.setControllerAdvice(new GlobalExceptionHandler()).build();
+		huespedMock = MockMvcBuilders.standaloneSetup(new HuespedController(usuarioService))
+				.setControllerAdvice(new GlobalExceptionHandler()).build();
+		anfitrionMock = MockMvcBuilders.standaloneSetup(new AnfitrionController(usuarioService))
 				.setControllerAdvice(new GlobalExceptionHandler()).build();
 		notificacionMock = MockMvcBuilders.standaloneSetup(new NotificacionController(notificacionService))
 				.setControllerAdvice(new GlobalExceptionHandler()).build();

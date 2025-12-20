@@ -58,7 +58,7 @@ public class UsuarioService {
 		if (!usuario.getTipo().equals(TipoUsuario.ANFITRION))
 			throw new ConflictException("El usuario " + usuario.getNombre() + " no es un anfitrión");
 		return reservaRepository.findAll().stream()
-				.filter(reserva -> reserva.getAnfitrionId().equals(usuario.getId())).toList();
+				.filter(reserva -> reserva.obtenerAnfitrion().equals(usuario)).toList();
 	}
 
 }

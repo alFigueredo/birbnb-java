@@ -39,4 +39,26 @@ public class UsuarioControllerTest extends BaseIntegrationTest {
 				.andExpect(jsonPath("$.nombre").doesNotExist());
 	}
 
+	@Test
+	public void retornarNotificaciones() throws Exception {
+		usuarioMock.perform(get("/api/usuarios/1/notificaciones"))
+				.andExpect(status().isOk())
+				.andExpect(content().contentType("application/json"))
+				.andExpect(jsonPath("$.length()").value(0));
+	}
+
+	public void retornarNotificacionesLeidas() throws Exception {
+		usuarioMock.perform(get("/api/usuarios/1/notificaciones/leidas"))
+				.andExpect(status().isOk())
+				.andExpect(content().contentType("application/json"))
+				.andExpect(jsonPath("$.length()").value(0));
+	}
+
+	public void retornarNotificacionesSinLeer() throws Exception {
+		usuarioMock.perform(get("/api/usuarios/1/notificaciones/sinleer"))
+				.andExpect(status().isOk())
+				.andExpect(content().contentType("application/json"))
+				.andExpect(jsonPath("$.length()").value(0));
+	}
+
 }

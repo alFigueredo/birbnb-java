@@ -100,6 +100,10 @@ public class Reserva {
 		return getAlojamiento().getNombre();
 	}
 
+	public Usuario obtenerAnfitrion() {
+		return getAlojamiento().getAnfitrion();
+	}
+
 	public Long getAnfitrionId() {
 		return getAlojamiento().getAnfitrionId();
 	}
