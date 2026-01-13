@@ -3,6 +3,7 @@ package com.panki.birbnb_backend.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.panki.birbnb_backend.dto.MotivoDTO;
 import com.panki.birbnb_backend.dto.ReservaDTO;
@@ -38,6 +39,7 @@ public class ReservaService {
 				.orElseThrow(() -> new NotFoundException("La reserva " + id + " no existe"));
 	}
 
+	@Transactional
 	public Reserva post(ReservaDTO reservaDTO) {
 		final Alojamiento alojamiento = alojamientoService.getById(reservaDTO.getAlojamientoId());
 		final Usuario huespedReservador = usuarioService.getById(reservaDTO.getHuespedReservadorId());
@@ -61,6 +63,7 @@ public class ReservaService {
 		return nuevaReserva;
 	}
 
+	@Transactional
 	public Reserva cancelarReserva(Long id, MotivoDTO motivoDTO) {
 		final Reserva reserva = getById(id);
 		if (!reserva.getRangoFechas().antesDeFechaInicio())
@@ -71,6 +74,7 @@ public class ReservaService {
 		return nuevaReserva;
 	}
 
+	@Transactional
 	public Reserva confirmarReserva(Long id) {
 		final Reserva reserva = getById(id);
 		if (!reserva.getRangoFechas().antesDeFechaInicio())
@@ -81,6 +85,7 @@ public class ReservaService {
 		return nuevaReserva;
 	}
 
+	@Transactional
 	public Reserva rechazarReserva(Long id, MotivoDTO motivoDTO) {
 		final Reserva reserva = getById(id);
 		if (!reserva.getRangoFechas().antesDeFechaInicio())
@@ -91,6 +96,7 @@ public class ReservaService {
 		return nuevaReserva;
 	}
 
+	@Transactional
 	public Reserva modificarReserva(Long id, ReservaDTO reservaDTO) {
 		final Reserva reserva = getById(id);
 		final Alojamiento alojamiento = alojamientoService.getById(reserva.getAlojamientoId());

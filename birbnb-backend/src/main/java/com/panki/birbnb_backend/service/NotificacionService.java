@@ -3,6 +3,7 @@ package com.panki.birbnb_backend.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.panki.birbnb_backend.exception.NotFoundException;
 import com.panki.birbnb_backend.model.Notificacion;
@@ -26,6 +27,7 @@ public class NotificacionService {
 				.orElseThrow(() -> new NotFoundException("La notificación " + id + " no existe"));
 	}
 
+	@Transactional
 	public Notificacion marcarComoLeida(Long id) {
 		final Notificacion notificacion = getById(id);
 		notificacion.marcarComoLeida();
