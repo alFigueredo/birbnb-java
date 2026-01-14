@@ -1,11 +1,5 @@
 import type { Dispatch, SetStateAction } from "react";
-
-export type Pagina = {
-  page: number;
-  limit: number;
-  total: number;
-  cantPaginas: number;
-};
+import type { Pagina } from "../../types/Alojamiento";
 
 interface Props {
   pagina: Pagina;

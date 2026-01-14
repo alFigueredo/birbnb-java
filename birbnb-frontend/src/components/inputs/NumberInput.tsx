@@ -1,12 +1,12 @@
 import type { Dispatch, SetStateAction } from "react";
-import type { Filtro } from "../Filtros";
+import type { PartialFiltro } from "../../types/Alojamiento";
 
 interface Props {
-  id: string;
+  id: keyof PartialFiltro;
   label: string;
   step: string;
-  filtros: Filtro;
-  setFiltros: Dispatch<SetStateAction<Filtro>>;
+  filtros: PartialFiltro;
+  setFiltros: Dispatch<SetStateAction<PartialFiltro>>;
 }
 
 export default function NumberInput({

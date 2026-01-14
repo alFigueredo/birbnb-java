@@ -1,31 +1,8 @@
 import { useState, type FormEventHandler } from "react";
 import useUsuario from "../../context/useUsuario";
-import type { Reserva } from "../../pages/reservas/Reservas";
 import { putReserva } from "../../services/api";
 import "../../styles/FormularioEditarReserva.css";
-
-export type RangoFechas = {
-  fechaInicio: Date;
-  fechaFin: Date;
-};
-
-export type DetallesReserva = {
-  [index: string]: unknown;
-  cantHuespedes?: number;
-  fechaInicio?: string;
-  fechaFin?: string;
-};
-
-export type PutReserva = {
-  [index: string]: unknown;
-  id?: number;
-  alojamiento?: number;
-  huespedReservador?: number;
-  cantHuespedes?: number;
-  rangoFechas: RangoFechas;
-  estadoReserva?: string;
-  fechaAlta?: string;
-};
+import type { DetallesReserva, PutReserva, Reserva } from "../../types/Reserva";
 
 interface Props {
   reserva: Reserva;
@@ -39,7 +16,13 @@ export default function FormularioEditarReserva({
   const [showForm, setShowForm] = useState(false);
   const toggleForm = () => setShowForm(!showForm);
   const { usuarioActual } = useUsuario();
-  const [detallesReserva, setDetallesReserva] = useState<DetallesReserva>({});
+  const [detallesReserva, setDetallesReserva] =
+    useState<DetallesReserva | null>(null);
+  const EMPTY_DETALLES: DetallesReserva = {
+    cantHuespedes: 0,
+    fechaInicio: "",
+    fechaFin: "",
+  };
   const [mensaje, setMensaje] = useState("");
   const [loadingReserva, setLoadingReserva] = useState(false);
 
@@ -60,14 +43,14 @@ export default function FormularioEditarReserva({
 
     const reservaEditada: PutReserva = {
       id: reserva.id,
-      cantHuespedes: detallesReserva.cantHuespedes || reserva.cantHuespedes,
+      cantHuespedes: detallesReserva?.cantHuespedes || reserva.cantHuespedes,
       rangoFechas: {
-        fechaInicio: detallesReserva.fechaInicio
-          ? parseDateAsLocal(detallesReserva.fechaInicio)
-          : parseDateAsLocal(reserva.rangoFechas.fechaInicio),
-        fechaFin: detallesReserva.fechaFin
-          ? parseDateAsLocal(detallesReserva.fechaFin)
-          : parseDateAsLocal(reserva.rangoFechas.fechaFin),
+        fechaInicio: parseDateAsLocal(
+          detallesReserva?.fechaInicio ?? reserva.rangoFechas.fechaInicio,
+        ),
+        fechaFin: parseDateAsLocal(
+          detallesReserva?.fechaFin ?? reserva.rangoFechas.fechaFin,
+        ),
       },
     };
 
@@ -77,7 +60,7 @@ export default function FormularioEditarReserva({
       setMensaje("✅ ¡Reserva editada con éxito!");
       obtenerReservas();
       setDetallesReserva({
-        ...detallesReserva,
+        ...(detallesReserva ?? EMPTY_DETALLES),
         fechaInicio: "",
         fechaFin: "",
       });
@@ -119,10 +102,10 @@ export default function FormularioEditarReserva({
               type="number"
               id="cantHuespedes"
               placeholder="Cantidad de huéspedes"
-              value={detallesReserva.cantHuespedes || ""}
+              value={detallesReserva?.cantHuespedes || ""}
               onChange={(e) =>
                 setDetallesReserva({
-                  ...detallesReserva,
+                  ...(detallesReserva ?? EMPTY_DETALLES),
                   cantHuespedes: parseInt(e.target.value),
                 })
               }
@@ -135,10 +118,10 @@ export default function FormularioEditarReserva({
             <input
               type="date"
               id="fechaInicio"
-              value={detallesReserva.fechaInicio || ""}
+              value={detallesReserva?.fechaInicio || ""}
               onChange={(e) =>
                 setDetallesReserva({
-                  ...detallesReserva,
+                  ...(detallesReserva ?? EMPTY_DETALLES),
                   fechaInicio: e.target.value,
                 })
               }
@@ -151,10 +134,10 @@ export default function FormularioEditarReserva({
             <input
               type="date"
               id="fechaFin"
-              value={detallesReserva.fechaFin || ""}
+              value={detallesReserva?.fechaFin || ""}
               onChange={(e) =>
                 setDetallesReserva({
-                  ...detallesReserva,
+                  ...(detallesReserva ?? EMPTY_DETALLES),
                   fechaFin: e.target.value,
                 })
               }

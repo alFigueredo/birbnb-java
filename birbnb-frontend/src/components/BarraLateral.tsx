@@ -1,10 +1,11 @@
 import type { Dispatch, SetStateAction } from "react";
-import Filtros, { type Filtro } from "./Filtros";
+import Filtros from "./Filtros";
 import "../styles/Filtros.css";
+import type { PartialFiltro } from "../types/Alojamiento";
 
 interface Props {
-  filtros: Filtro;
-  setFiltros: Dispatch<SetStateAction<Filtro>>;
+  filtros: PartialFiltro;
+  setFiltros: Dispatch<SetStateAction<PartialFiltro>>;
   sidebarOpen: boolean;
   setSidebarOpen: Dispatch<SetStateAction<boolean>>;
 }

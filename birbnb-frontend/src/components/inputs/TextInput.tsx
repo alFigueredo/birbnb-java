@@ -1,11 +1,11 @@
 import type { Dispatch, SetStateAction } from "react";
-import { type Filtro } from "../Filtros";
+import type { PartialFiltro } from "../../types/Alojamiento";
 
 interface Props {
-  id: string;
+  id: keyof PartialFiltro;
   label: string;
-  filtros: Filtro;
-  setFiltros: Dispatch<SetStateAction<Filtro>>;
+  filtros: PartialFiltro;
+  setFiltros: Dispatch<SetStateAction<PartialFiltro>>;
 }
 
 export default function TextInput({ id, label, filtros, setFiltros }: Props) {

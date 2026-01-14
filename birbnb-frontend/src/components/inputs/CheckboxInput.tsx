@@ -1,13 +1,13 @@
 import type { ChangeEvent, Dispatch, SetStateAction } from "react";
-import type { Filtro } from "../Filtros";
 import Checkbox from "./Checkbox";
+import type { PartialFiltro } from "../../types/Alojamiento";
 
 interface Props {
   id: "caractPedidas";
   title: string;
   values: { id: string; label: string }[];
-  filtros: Filtro;
-  setFiltros: Dispatch<SetStateAction<Filtro>>;
+  filtros: PartialFiltro;
+  setFiltros: Dispatch<SetStateAction<PartialFiltro>>;
 }
 
 export default function CheckboxInput({
@@ -18,15 +18,15 @@ export default function CheckboxInput({
   setFiltros,
 }: Props) {
   function incluyeFiltro(value: string) {
-    return filtros[id].includes(value);
+    return filtros[id]?.includes(value) ?? false;
   }
 
   function setearFiltros(e: ChangeEvent<HTMLInputElement>) {
     setFiltros({
       ...filtros,
       [id]: incluyeFiltro(e.target.value)
-        ? filtros[id].filter((v: string) => v !== e.target.value)
-        : [...filtros[id], e.target.value],
+        ? filtros[id]?.filter((v: string) => v !== e.target.value)
+        : [...(filtros[id] ?? []), e.target.value],
     });
   }
 

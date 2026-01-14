@@ -4,12 +4,7 @@ import {
   type Dispatch,
   type SetStateAction,
 } from "react";
-
-export type Usuario = {
-  id: number;
-  nombre: string;
-  tipo: string;
-};
+import type { Usuario } from "../types/Usuario";
 
 export type Context = {
   usuarios: Usuario[];

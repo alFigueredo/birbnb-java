@@ -1,17 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
 import NotificacionesLista from "./NotificacionesLista";
 import { getNotificaciones, leerNotificacion } from "../../services/api";
+import type { Notificacion } from "../../types/Notificacion";
 
 interface Props {
   userId: string;
 }
-
-export type Notificacion = {
-  fechaAlta: Date;
-  id: string;
-  leida: boolean;
-  mensaje: string;
-};
 
 export default function Notificaciones({ userId }: Props) {
   const [mostrarNotis, setMostrarNotis] = useState(false);

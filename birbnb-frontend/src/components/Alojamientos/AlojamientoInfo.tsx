@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import AlojamientoDatos from "./AlojamientoDatos";
-import type { Alojamiento } from "../../pages/alojamientos/Alojamientos";
 import { getAlojamiento } from "../../services/api";
 import FotoCarrusel from "./FotoCarrusel";
 import "../../styles/AlojamientoPage.css";
 import SkeletonInfo from "./SkeletonInfo";
 import Formulario from "../Formulario";
+import type { Alojamiento } from "../../types/Alojamiento";
 
 interface Props {
   id: string;

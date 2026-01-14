@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import type { Alojamiento } from "../../pages/alojamientos/Alojamientos";
+import type { Alojamiento } from "../../types/Alojamiento";
 
 interface Props {
   aloj: Alojamiento;

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import type { Reserva } from "../../pages/reservas/Reservas";
 import useUsuario from "../../context/useUsuario";
 import {
   cancelarReserva,
@@ -10,6 +9,7 @@ import FormularioEditarReserva from "./FormularioEditarReserva";
 import VentanaCancelacion from "./VentanaCancelacion";
 import VentanaConfirmacion from "./VentanaConfirmacion";
 import VentanaRechazo from "./VentanaRechazo";
+import type { Reserva } from "../../types/Reserva";
 
 interface Props {
   reserva: Reserva;

@@ -1,29 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
-import useUsuario, { type Usuario } from "../../context/useUsuario";
+import useUsuario from "../../context/useUsuario";
 import { getReservas, getReservasAnfitrion } from "../../services/api";
-import type { Notificacion } from "../../components/Notificaciones/Notificaciones";
 import "../../styles/Reservas.css";
 import SkeletonCard from "../../components/Reservas/SkeletonCard";
-import type { Alojamiento } from "../alojamientos/Alojamientos";
 import ReservasCard from "../../components/Reservas/ReservasCard";
-
-export type RangoFechas = {
-  fechaInicio: string;
-  fechaFin: string;
-};
-
-export type Reserva = {
-  [index: string]: unknown;
-  id?: number;
-  alojamiento?: Alojamiento;
-  huespedReservador?: Usuario;
-  cantHuespedes?: number;
-  rangoFechas: RangoFechas;
-  estadoReserva?: string;
-  fechaAlta?: string;
-  fechaActualizacion?: string;
-  alojamientoNombre?: string;
-};
+import type { Notificacion } from "../../types/Notificacion";
 
 export default function ReservasList() {
   const { usuarioActual } = useUsuario();

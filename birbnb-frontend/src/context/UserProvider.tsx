@@ -1,6 +1,7 @@
 import { useState, useEffect, type ReactNode } from "react";
 import { getUsuarios } from "../services/api";
-import { UserContext, type Usuario } from "./useUsuario";
+import { UserContext } from "./useUsuario";
+import type { Usuario } from "../types/Usuario";
 
 interface Props {
   children: ReactNode;

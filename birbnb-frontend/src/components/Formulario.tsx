@@ -1,31 +1,9 @@
 import { useState, type FormEventHandler } from "react";
 import useUsuario from "../context/useUsuario";
 import { postReserva } from "../services/api";
-import type { Alojamiento } from "../pages/alojamientos/Alojamientos";
 import "../styles/Formulario.css";
-
-export type RangoFechas = {
-  fechaInicio: Date;
-  fechaFin: Date;
-};
-
-export type DetallesReserva = {
-  [index: string]: unknown;
-  cantHuespedes?: number;
-  fechaInicio?: string;
-  fechaFin?: string;
-};
-
-export type PostReserva = {
-  [index: string]: unknown;
-  id?: number;
-  alojamiento?: number;
-  huespedReservador?: number;
-  cantHuespedes?: number;
-  rangoFechas?: RangoFechas;
-  estado?: string;
-  fechaAlta?: string;
-};
+import type { DetallesReserva, PostReserva } from "../types/Reserva";
+import type { Alojamiento } from "../types/Alojamiento";
 
 interface Props {
   aloja: Alojamiento;
@@ -35,7 +13,13 @@ export default function Formulario({ aloja }: Props) {
   const [showForm, setShowForm] = useState(false);
   const toggleForm = () => setShowForm(!showForm);
   const { usuarioActual } = useUsuario();
-  const [detallesReserva, setDetallesReserva] = useState<DetallesReserva>({});
+  const [detallesReserva, setDetallesReserva] =
+    useState<DetallesReserva | null>(null);
+  const EMPTY_DETALLES: DetallesReserva = {
+    cantHuespedes: 0,
+    fechaInicio: "",
+    fechaFin: "",
+  };
   const [mensaje, setMensaje] = useState("");
   const [loadingReserva, setLoadingReserva] = useState(false);
 
@@ -56,11 +40,11 @@ export default function Formulario({ aloja }: Props) {
 
     const reserva: PostReserva = {
       huespedReservadorId: usuarioActual.id,
-      cantHuespedes: detallesReserva.cantHuespedes,
+      cantHuespedes: detallesReserva?.cantHuespedes || 0,
       alojamientoId: aloja.id,
       rangoFechas: {
-        fechaInicio: parseDateAsLocal(detallesReserva.fechaInicio || ""),
-        fechaFin: parseDateAsLocal(detallesReserva.fechaFin || ""),
+        fechaInicio: parseDateAsLocal(detallesReserva?.fechaInicio || ""),
+        fechaFin: parseDateAsLocal(detallesReserva?.fechaFin || ""),
       },
       precioPorNoche: aloja.precioPorNoche,
     };
@@ -70,7 +54,7 @@ export default function Formulario({ aloja }: Props) {
 
       setMensaje("✅ ¡Reserva creada con éxito!");
       setDetallesReserva({
-        ...detallesReserva,
+        ...(detallesReserva ?? EMPTY_DETALLES),
         fechaInicio: "",
         fechaFin: "",
       });
@@ -113,10 +97,10 @@ export default function Formulario({ aloja }: Props) {
               type="number"
               id="cantHuespedes"
               placeholder="Cantidad de huéspedes"
-              value={detallesReserva.cantHuespedes || ""}
+              value={detallesReserva?.cantHuespedes || ""}
               onChange={(e) =>
                 setDetallesReserva({
-                  ...detallesReserva,
+                  ...(detallesReserva ?? EMPTY_DETALLES),
                   cantHuespedes: parseInt(e.target.value),
                 })
               }
@@ -130,10 +114,10 @@ export default function Formulario({ aloja }: Props) {
             <input
               type="date"
               id="fechaInicio"
-              value={detallesReserva.fechaInicio || ""}
+              value={detallesReserva?.fechaInicio || ""}
               onChange={(e) =>
                 setDetallesReserva({
-                  ...detallesReserva,
+                  ...(detallesReserva ?? EMPTY_DETALLES),
                   fechaInicio: e.target.value,
                 })
               }
@@ -147,10 +131,10 @@ export default function Formulario({ aloja }: Props) {
             <input
               type="date"
               id="fechaFin"
-              value={detallesReserva.fechaFin || ""}
+              value={detallesReserva?.fechaFin || ""}
               onChange={(e) =>
                 setDetallesReserva({
-                  ...detallesReserva,
+                  ...(detallesReserva ?? EMPTY_DETALLES),
                   fechaFin: e.target.value,
                 })
               }

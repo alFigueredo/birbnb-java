@@ -2,15 +2,11 @@ import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
 import TextInput from "./inputs/TextInput";
 import NumberInput from "./inputs/NumberInput";
 import CheckboxInput from "./inputs/CheckboxInput";
-
-export type Filtro = {
-  [index: string]: string | number | string[];
-  caractPedidas: string[];
-};
+import type { PartialFiltro } from "../types/Alojamiento";
 
 interface Props {
-  filtros: Filtro;
-  setFiltros: Dispatch<SetStateAction<Filtro>>;
+  filtros: PartialFiltro;
+  setFiltros: Dispatch<SetStateAction<PartialFiltro>>;
 }
 
 export default function Filtros({ filtros, setFiltros }: Props) {

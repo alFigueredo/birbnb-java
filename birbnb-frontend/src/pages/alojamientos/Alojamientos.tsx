@@ -4,35 +4,12 @@ import AlojamientoCard from "../../components/Alojamientos/AlojamientoCard";
 import SkeletonCard from "../../components/Alojamientos/SkeletonCard";
 import BarraLateral from "../../components/BarraLateral";
 import { getAlojamientos } from "../../services/api";
-import Paginador, {
-  type Pagina,
-} from "../../components/Alojamientos/Paginador";
-import type { Filtro } from "../../components/Filtros";
-import type { Usuario } from "../../context/useUsuario";
-
-export type Direccion = {
-  calle: string;
-  altura: string;
-  latitud: string;
-  longitud: string;
-};
-
-export type Foto = {
-  path: string;
-  descripcion: string;
-};
-
-export type Alojamiento = {
-  [index: string]: unknown;
-  id: number;
-  nombre: string;
-  descripcion: string;
-  anfitrion: Usuario;
-  precioPorNoche: number;
-  cantHuespedesMax: number;
-  direccion: Direccion;
-  fotos: Foto[];
-};
+import Paginador from "../../components/Alojamientos/Paginador";
+import type {
+  Alojamiento,
+  Pagina,
+  PartialFiltro,
+} from "../../types/Alojamiento";
 
 export default function Alojamientos() {
   const [alojamientos, setAlojamientos] = useState<Alojamiento[]>([]);
@@ -42,13 +19,13 @@ export default function Alojamientos() {
     total: 0,
     cantPaginas: 1,
   });
-  const [filtros, setFiltros] = useState<Filtro>({
+  const [filtros, setFiltros] = useState<PartialFiltro>({
     caractPedidas: [],
   });
   const [loading, setLoading] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(false); //para el dezplazamiento al abrir filtros
 
-  function limpiarFiltros(obj: Filtro) {
+  function limpiarFiltros(obj: PartialFiltro) {
     return Object.fromEntries(
       Object.entries(obj)
         .filter(

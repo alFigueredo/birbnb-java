@@ -1,5 +1,5 @@
 import { useState, type MouseEvent } from "react";
-import type { Foto } from "../../pages/alojamientos/Alojamientos";
+import type { Foto } from "../../types/Alojamiento";
 
 interface Props {
   fotos: Foto[];

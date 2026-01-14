@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { Notificacion } from "./Notificaciones";
+import type { Notificacion } from "../../types/Notificacion";
 
 interface Props {
   notificaciones: Notificacion[];
