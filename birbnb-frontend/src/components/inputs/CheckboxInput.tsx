@@ -1,9 +1,11 @@
 import type { ChangeEvent, Dispatch, SetStateAction } from "react";
 import Checkbox from "./Checkbox";
-import type { PartialFiltro } from "../../types/Alojamiento";
+import type { Filtro, PartialFiltro } from "../../types/Alojamiento";
 
 interface Props {
-  id: "caractPedidas";
+  id: {
+    [K in keyof Filtro]: Filtro[K] extends string[] ? K : never;
+  }[keyof Filtro];
   title: string;
   values: { id: string; label: string }[];
   filtros: PartialFiltro;

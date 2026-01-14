@@ -33,10 +33,9 @@ export type Filtro = {
   cantHuespedes: number;
   lat: string;
   long: string;
-  page?: number;
 };
 
-export type PartialFiltro = Partial<Filtro>;
+export type PartialFiltro = Partial<Filtro> & { page?: number };
 
 export type Pagina = {
   page: number;
