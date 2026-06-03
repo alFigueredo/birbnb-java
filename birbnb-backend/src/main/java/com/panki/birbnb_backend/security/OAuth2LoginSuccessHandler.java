@@ -30,7 +30,7 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
 		this.jwtService = jwtService;
 	}
 
-	@Value("${frontend.url}:http://localhost:5173")
+	@Value("${frontend.url:http://localhost:5173}")
 	private String frontendUrl;
 
 	@Override

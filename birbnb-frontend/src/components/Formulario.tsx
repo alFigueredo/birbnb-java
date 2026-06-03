@@ -1,5 +1,5 @@
 import { useState, type FormEventHandler } from "react";
-import useUsuario from "../context/useUsuario";
+import { useUsuario } from "../context/useAuth";
 import { postReserva } from "../services/api";
 import "../styles/Formulario.css";
 import type { DetallesReserva, PostReserva } from "../types/Reserva";
@@ -12,7 +12,7 @@ interface Props {
 export default function Formulario({ aloja }: Props) {
   const [showForm, setShowForm] = useState(false);
   const toggleForm = () => setShowForm(!showForm);
-  const { usuarioActual } = useUsuario();
+  const usuarioActual = useUsuario();
   const [detallesReserva, setDetallesReserva] =
     useState<DetallesReserva | null>(null);
   const EMPTY_DETALLES: DetallesReserva = {

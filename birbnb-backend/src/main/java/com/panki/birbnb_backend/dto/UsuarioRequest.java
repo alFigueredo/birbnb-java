@@ -21,6 +21,12 @@ public class UsuarioRequest {
 		this.tipoUsuario = usuario.getTipo();
 	}
 
+	protected UsuarioRequest() {
+		this.nombre = null;
+		this.email = null;
+		this.tipoUsuario = null;
+	}
+
 	public static Usuario from(UsuarioRequest usuarioRequest) {
 		return new Usuario(usuarioRequest.getNombre(), usuarioRequest.getEmail(), usuarioRequest.getTipoUsuario());
 	}

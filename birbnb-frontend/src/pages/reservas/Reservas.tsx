@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import useUsuario from "../../context/useUsuario";
+import { useUsuario } from "../../context/useAuth";
 import { getReservas, getReservasAnfitrion } from "../../services/api";
 import "../../styles/Reservas.css";
 import SkeletonCard from "../../components/Reservas/SkeletonCard";
@@ -7,7 +7,7 @@ import ReservasCard from "../../components/Reservas/ReservasCard";
 import type { Notificacion } from "../../types/Notificacion";
 
 export default function ReservasList() {
-  const { usuarioActual } = useUsuario();
+  const usuarioActual = useUsuario();
   const [reservas, setReservas] = useState([]);
   const [loading, setLoading] = useState(true);
 

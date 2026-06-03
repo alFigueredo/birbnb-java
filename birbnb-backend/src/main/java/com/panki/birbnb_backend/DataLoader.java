@@ -1,11 +1,13 @@
 package com.panki.birbnb_backend;
 
 import java.time.LocalDate;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.panki.birbnb_backend.model.Alojamiento;
 import com.panki.birbnb_backend.model.Ciudad;
@@ -18,9 +20,11 @@ import com.panki.birbnb_backend.model.enums.Caracteristica;
 import com.panki.birbnb_backend.model.enums.Moneda;
 import com.panki.birbnb_backend.model.enums.TipoUsuario;
 import com.panki.birbnb_backend.repository.AlojamientoRepository;
+import com.panki.birbnb_backend.repository.NotificacionRepository;
 import com.panki.birbnb_backend.repository.PaisRepository;
 import com.panki.birbnb_backend.repository.ReservaRepository;
 import com.panki.birbnb_backend.repository.UsuarioRepository;
+import com.panki.birbnb_backend.service.UsuarioService;
 
 @Component
 public class DataLoader implements CommandLineRunner {
@@ -29,45 +33,68 @@ public class DataLoader implements CommandLineRunner {
 	private final AlojamientoRepository alojamientoRepository;
 	private final ReservaRepository reservaRepository;
 	private final PaisRepository paisRepository;
+	private final NotificacionRepository notificacionRepository;
+	private final UsuarioService usuarioService;
 
 	public DataLoader(UsuarioRepository usuarioRepository, AlojamientoRepository alojamientoRepository,
-			ReservaRepository reservaRepository, PaisRepository paisRepository) {
+			ReservaRepository reservaRepository, PaisRepository paisRepository,
+			NotificacionRepository notificacionRepository, UsuarioService usuarioService) {
 		this.usuarioRepository = usuarioRepository;
 		this.alojamientoRepository = alojamientoRepository;
 		this.reservaRepository = reservaRepository;
 		this.paisRepository = paisRepository;
+		this.notificacionRepository = notificacionRepository;
+		this.usuarioService = usuarioService;
 	}
 
 	@Override
+	@Transactional
 	public void run(String... args) throws Exception {
 
 		System.out.println("=== Precargando datos de prueba ===");
 
 		alojamientoRepository.deleteAll();
-		usuarioRepository.deleteAll();
+		// usuarioRepository.deleteAll();
+		notificacionRepository.deleteAll();
 		paisRepository.deleteAll();
 
+		final Optional<Usuario> huespedOp = usuarioService.getUsuarioByEmail("afigueredoaguiar@frba.utn.edu.ar");
+		Usuario huesped;
+		if (huespedOp.isPresent()) {
+			huesped = huespedOp.get();
+		} else {
+			huesped = new Usuario("John Doe", "johndoe@gmail.com", TipoUsuario.HUESPED);
+			usuarioRepository.save(huesped);
+		}
+
 		final Usuario[] huespedes = {
-				new Usuario("John Doe", "johndoe@gmail.com", TipoUsuario.HUESPED),
-				new Usuario("Marta Aguero", "maguero@gmail.com", TipoUsuario.HUESPED),
-				new Usuario("Carlos Perez", "cperez@gmail.com", TipoUsuario.HUESPED)
+				huesped
 		};
 
 		huespedes[0].agregarNotificacion("¡Gracias por reservar con nosotros!");
-		huespedes[1]
+		huespedes[0]
 				.agregarNotificacion("¡Oferta especial! 20% de descuento en todos los productos hasta la medianoche.");
-		huespedes[2].agregarNotificacion("Mensaje 3");
-		huespedes[1].agregarNotificacion(
+		huespedes[0].agregarNotificacion(
 				"¡Esperamos que hayas disfrutado de tu estancia! ¿Podrías dejarnos una evaluación sobre tu experiencia en  Tu opinión es importante para nosotros");
-		huespedes[2].agregarNotificacion("Mensaje 5");
 
-		for (final Usuario huesped : huespedes)
-			usuarioRepository.save(huesped);
+		// for (final Usuario huesped : huespedes)
+		// usuarioRepository.save(huesped);
 
-		final Usuario[] anfitriones = { new Usuario("Jane Doe", "janedoe@gmail.com", TipoUsuario.ANFITRION) };
-
-		for (final Usuario anfitrion : anfitriones)
+		final Optional<Usuario> anfitrionOp = usuarioService.getUsuarioByEmail("lionelfigueredo@gmail.com");
+		Usuario anfitrion;
+		if (anfitrionOp.isPresent()) {
+			anfitrion = anfitrionOp.get();
+		} else {
+			anfitrion = new Usuario("Jane Doe", "janedoe@gmail.com", TipoUsuario.ANFITRION);
 			usuarioRepository.save(anfitrion);
+		}
+
+		final Usuario[] anfitriones = {
+				anfitrion
+		};
+
+		// for (final Usuario anfitrion : anfitriones)
+		// usuarioRepository.save(anfitrion);
 
 		final Pais[] paises = {
 				new Pais("Argentina"),
@@ -298,10 +325,10 @@ public class DataLoader implements CommandLineRunner {
 
 		final Reserva[] reservas = {
 				new Reserva(huespedes[0], 3, alojamientos[0], rangoFechas[0]),
-				new Reserva(huespedes[1], 3, alojamientos[0], rangoFechas[1]),
-				new Reserva(huespedes[2], 3, alojamientos[0], rangoFechas[2]),
-				new Reserva(huespedes[1], 3, alojamientos[0], rangoFechas[3]),
-				new Reserva(huespedes[2], 3, alojamientos[0], rangoFechas[4]),
+				new Reserva(huespedes[0], 3, alojamientos[0], rangoFechas[1]),
+				new Reserva(huespedes[0], 3, alojamientos[0], rangoFechas[2]),
+				new Reserva(huespedes[0], 3, alojamientos[0], rangoFechas[3]),
+				new Reserva(huespedes[0], 3, alojamientos[0], rangoFechas[4]),
 		};
 
 		for (final Reserva reserva : reservas)

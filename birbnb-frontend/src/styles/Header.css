@@ -65,7 +65,7 @@
 }
 
 #nav-links,
-#usuario-setter,
+#session-div,
 #notificaciones {
   display: none;
   @media (width >= 40rem) {
@@ -77,6 +77,24 @@
 #nav-links {
   gap: calc(var(--spacing) * 6);
   margin-right: auto;
+}
+
+#session-div {
+  margin-right: calc(var(--spacing) * 2);
+}
+
+#session-button {
+  background-color: #57534d;
+  color: white;
+  padding: calc(var(--spacing) * 2) calc(var(--spacing) * 3);
+  border-radius: 0.25rem;
+  box-shadow:
+    0 1px 3px 0 rgb(0 0 0 / 0.1),
+    0 1px 2px -1px rgb(0 0 0 / 0.1);
+  &:hover {
+    background-color: #79716b;
+  }
+  cursor: pointer;
 }
 
 #notificaciones {

@@ -1,5 +1,5 @@
 import { useState, type FormEventHandler } from "react";
-import useUsuario from "../../context/useUsuario";
+import { useUsuario } from "../../context/useAuth";
 import { putReserva } from "../../services/api";
 import "../../styles/FormularioEditarReserva.css";
 import type { DetallesReserva, PutReserva, Reserva } from "../../types/Reserva";
@@ -15,7 +15,7 @@ export default function FormularioEditarReserva({
 }: Props) {
   const [showForm, setShowForm] = useState(false);
   const toggleForm = () => setShowForm(!showForm);
-  const { usuarioActual } = useUsuario();
+  const usuarioActual = useUsuario();
   const [detallesReserva, setDetallesReserva] =
     useState<DetallesReserva | null>(null);
   const EMPTY_DETALLES: DetallesReserva = {

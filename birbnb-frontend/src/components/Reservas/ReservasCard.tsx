@@ -1,5 +1,5 @@
 import { useState } from "react";
-import useUsuario from "../../context/useUsuario";
+import { useUsuario } from "../../context/useAuth";
 import {
   cancelarReserva,
   confirmarReserva,
@@ -17,7 +17,7 @@ interface Props {
 }
 
 export default function ReservasCard({ reserva, obtenerReservas }: Props) {
-  const { usuarioActual } = useUsuario();
+  const usuarioActual = useUsuario();
   const [loading, setLoading] = useState({
     cancelar: false,
     confirmar: false,

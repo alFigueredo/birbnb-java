@@ -2,13 +2,14 @@ import Notificaciones from "./Notificaciones/Notificaciones";
 import "../styles/Header.css";
 import NavLinks from "./Links";
 import { useState } from "react";
-import useUsuario from "../context/useUsuario.tsx";
-import SetUsuario from "./inputs/SetUsuario";
 import { Link } from "react-router";
+import SessionButton from "./inputs/SessionButton";
+import { useUsuario } from "../context/useAuth";
+import type { Usuario } from "../types/Usuario";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
-  const { usuarios, usuarioActual, setUsuarioActual } = useUsuario();
+  const usuarioActual: Usuario = useUsuario();
 
   return (
     <header id="root-header">
@@ -28,25 +29,17 @@ export default function Header() {
         <ul id="nav-links">
           <NavLinks setOpen={setOpen} />
         </ul>
-        <div id="usuario-setter">
-          <SetUsuario
-            usuarios={usuarios}
-            usuarioActual={usuarioActual}
-            setUsuarioActual={setUsuarioActual}
-          />
+        <div id="session-div">
+          <SessionButton user={usuarioActual} />
         </div>
         <div id="notificaciones">
-          <Notificaciones userId={usuarioActual?.id.toString() || ""} />
+          <Notificaciones userId={usuarioActual.id.toString() || ""} />
         </div>
       </nav>
       {open && (
         <ul id="sandwich-menu" className="animate-fade-in-down">
           <NavLinks setOpen={setOpen} />
-          <SetUsuario
-            usuarios={usuarios}
-            usuarioActual={usuarioActual}
-            setUsuarioActual={setUsuarioActual}
-          />
+          <SessionButton user={usuarioActual} />
         </ul>
       )}
     </header>

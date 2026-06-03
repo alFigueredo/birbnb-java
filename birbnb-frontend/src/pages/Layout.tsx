@@ -1,14 +1,14 @@
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import UserProvider from "../context/UserProvider";
+import AuthProvider from "../context/AuthProvider";
 import { Outlet } from "react-router";
 
 export default function Layout() {
   return (
-    <UserProvider>
+    <AuthProvider>
       <Header />
       <Outlet />
       <Footer />
-    </UserProvider>
+    </AuthProvider>
   );
 }

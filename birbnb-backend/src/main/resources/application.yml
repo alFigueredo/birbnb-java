@@ -4,7 +4,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO:update}
-    show-sql: true
+    # show-sql: true
     properties:
       hibernate:
         format_sql: true
@@ -26,6 +26,13 @@ spring:
             redirect-uri: ${GOOGLE_SSO_REDIRECT_URL:http://localhost:8080/login/oauth2/code/google}
 jwt:
   secret: ${JWT_SECRET:demo-secret-key-at-least-256-bits-long-for-hs256-algorithm}
-  expiration: ${JWT_EXPIRATION:604800000}
+  expiration: ${JWT_EXPIRATION:1000604800000}
 frontend:
   url: ${FRONTEND_URL:http://localhost:5173}
+logging:
+  level:
+    # org.springframework: DEBUG
+    # com.panki.birbnb_backend: TRACE
+    org.springframework.security: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.security.oauth2: TRACE

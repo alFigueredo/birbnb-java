@@ -1,15 +1,10 @@
 package com.panki.birbnb_backend.controller;
 
-// import java.util.Collections;
-import java.util.Map;
-
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.panki.birbnb_backend.dto.TokenResponse;
 import com.panki.birbnb_backend.dto.UsuarioRequest;
@@ -29,14 +24,13 @@ public class PerfilController {
 		this.jwtService = jwtService;
 	}
 
-	@GetMapping("/perfil")
-	public Map<String, Object> perfil(@AuthenticationPrincipal OAuth2User user) {
-		// return Collections.singletonMap("name", user.getAttribute("name"));
-		return user.getAttributes();
-	}
-
+	// @GetMapping("/perfil")
+	// public Map<String, Object> perfil(@AuthenticationPrincipal OAuth2User user) {
+	// return user.getAttributes();
+	// }
+	//
 	@PostMapping("/register")
-	public TokenResponse register(@RequestBody UsuarioRequest usuarioRequest) {
+	public @ResponseBody TokenResponse register(@RequestBody UsuarioRequest usuarioRequest) {
 		final UsuarioResponse usuarioResponse = usuarioService.upsertUsuario(usuarioRequest);
 		final String token = jwtService.generateToken(usuarioResponse.getId(), usuarioResponse.getNombre(),
 				usuarioResponse.getEmail(), usuarioResponse.getTipoUsuario());
