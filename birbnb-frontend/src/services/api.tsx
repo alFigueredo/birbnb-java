@@ -59,6 +59,7 @@ export const getAlojamientos = async (filtros: { [index: string]: string }) => {
 export const leerNotificacion = async (notiId: string) => {
   const res = await axios.put(
     `${API_BASE_URL}/notificaciones/${notiId}/leer`,
+    {},
     getAuthHeader(),
   );
   return res;
@@ -88,6 +89,7 @@ export const cancelarReserva = async (reservaId: string, motivo: string) => {
 export const confirmarReserva = async (reservaId: string) => {
   const res = await axios.put(
     `${API_BASE_URL}/reservas/${reservaId}/confirmar`,
+    {},
     getAuthHeader(),
   );
   return res;

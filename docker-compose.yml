@@ -1,10 +1,10 @@
 services:
-  postgres:
+  birbnb-postgres:
     container_name: "birbnb-postgres"
     image: "postgres:16-alpine"
     attach: false
     env_file:
-      - ./birbnb-backend/.env
+      - ./birbnb-backend/.env.docker
     volumes:
       - "postgres-data:/var/lib/postgresql/data"
 
@@ -14,9 +14,9 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - postgres
+      - birbnb-postgres
     env_file:
-      - ./birbnb-backend/.env
+      - ./birbnb-backend/.env.docker
 
   birbnb-frontend:
     container_name: birbnb-frontend
@@ -25,7 +25,7 @@ services:
       args:
         - NODE_ENV
     env_file:
-      - ./birbnb-frontend/.env
+      - ./birbnb-frontend/.env.docker
     environment:
       - NODE_ENV=production
     ports:

@@ -40,8 +40,8 @@ public class SecurityConfig {
 				.csrf(it -> it.disable())
 				.sessionManagement(it -> it.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authorizeHttpRequests(auth -> auth
-						.requestMatchers("/oauth2/**", "/login/**").permitAll()
-						.requestMatchers("/api/auth/**").permitAll()
+						.requestMatchers("/oauth2/**", "/login/**", "/api/auth/**", "/o/**").permitAll()
+						// .requestMatchers("/**").permitAll()
 						.anyRequest().authenticated())
 				.oauth2Login(oauth -> oauth.successHandler(oAuth2LoginSuccessHandler))
 				.logout(logout -> logout.logoutSuccessUrl("/"))
