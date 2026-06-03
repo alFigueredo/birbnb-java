@@ -18,26 +18,24 @@ export default function ReservasList() {
   }
 
   const obtenerReservas = useCallback(async () => {
-    let res;
-    if (usuarioActual?.tipo === "HUESPED")
-      res = await getReservas(usuarioActual?.id.toString() || "");
-    else res = await getReservasAnfitrion(usuarioActual?.id.toString() || "");
-    setReservas(res.data.sort(sortCriteria));
-  }, [usuarioActual]);
+    try {
+      setLoading(true);
+      const res =
+        usuarioActual.tipo === "HUESPED"
+          ? await getReservas(usuarioActual.id.toString())
+          : await getReservasAnfitrion(usuarioActual.id.toString());
+      setReservas(res.data.sort(sortCriteria));
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  }, [usuarioActual?.id, usuarioActual?.tipo]);
 
   useEffect(() => {
-    if (!usuarioActual) return;
-    (async () => {
-      try {
-        setLoading(true);
-        obtenerReservas();
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    })();
-  }, [usuarioActual, obtenerReservas]);
+    if (!usuarioActual?.id) return;
+    obtenerReservas();
+  }, [usuarioActual?.id, obtenerReservas]);
 
   return (
     <main id="reservas-main">

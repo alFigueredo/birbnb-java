@@ -24,11 +24,6 @@ public class PerfilController {
 		this.jwtService = jwtService;
 	}
 
-	// @GetMapping("/perfil")
-	// public Map<String, Object> perfil(@AuthenticationPrincipal OAuth2User user) {
-	// return user.getAttributes();
-	// }
-	//
 	@PostMapping("/register")
 	public @ResponseBody TokenResponse register(@RequestBody UsuarioRequest usuarioRequest) {
 		final UsuarioResponse usuarioResponse = usuarioService.upsertUsuario(usuarioRequest);

@@ -2,6 +2,7 @@ package com.panki.birbnb_backend.config;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -23,6 +24,9 @@ public class SecurityConfig {
 	private final OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
 	private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
+	@Value("${frontend.url:http://localhost:5173}")
+	private String frontendUrl;
+
 	public SecurityConfig(OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler,
 			JwtAuthenticationFilter jwtAuthenticationFilter) {
 		this.oAuth2LoginSuccessHandler = oAuth2LoginSuccessHandler;
@@ -37,8 +41,7 @@ public class SecurityConfig {
 				.sessionManagement(it -> it.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authorizeHttpRequests(auth -> auth
 						.requestMatchers("/oauth2/**", "/login/**").permitAll()
-						.requestMatchers("/api/**").permitAll()
-						.requestMatchers("/**").permitAll()
+						.requestMatchers("/api/auth/**").permitAll()
 						.anyRequest().authenticated())
 				.oauth2Login(oauth -> oauth.successHandler(oAuth2LoginSuccessHandler))
 				.logout(logout -> logout.logoutSuccessUrl("/"))
@@ -50,7 +53,7 @@ public class SecurityConfig {
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration config = new CorsConfiguration();
-		config.setAllowedOrigins(List.of("http://localhost:5173"));
+		config.setAllowedOrigins(List.of(frontendUrl));
 		config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
 		config.setAllowedHeaders(List.of("*"));
 		config.setAllowCredentials(true);
